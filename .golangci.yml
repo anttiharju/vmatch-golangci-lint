@@ -20,7 +20,6 @@ linters:
     - errorlint
     - exhaustive
     - exportloopref
-    - forbidigo
     - forcetypeassert
     - funlen
     - gci
