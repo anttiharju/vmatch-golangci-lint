@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-find . -iname "*.sh" | xargs shellcheck
+find . -iname "*.sh" -print0 | xargs shellcheck
