@@ -16,8 +16,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
-      - id: golangci-version
-        run: echo "GOLANGCI_LINT_VERSION=$(cat .golangci-version)" >> $GITHUB_ENV
+      - run: echo "GOLANGCI_LINT_VERSION=$(cat .golangci.version)" >> $GITHUB_ENV
       - uses: golangci/golangci-lint-action@v6
         with:
           version: ${{ env.GOLANGCI_LINT_VERSION }}
