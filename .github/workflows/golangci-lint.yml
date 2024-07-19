@@ -10,17 +10,14 @@ permissions:
 
 jobs:
   golangci-lint:
-    name: golangci-lint
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
-      - name: Read .golangci-version file
-        id: golangci-version
+      - id: golangci-version
         run: echo "GOLANGCI_LINT_VERSION=$(cat .golangci-version)" >> $GITHUB_ENV
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v6
+      - uses: golangci/golangci-lint-action@v6
         with:
           version: ${{ env.GOLANGCI_LINT_VERSION }}
