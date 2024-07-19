@@ -21,3 +21,6 @@ lint-fix:
 .PHONY: shellcheck
 shellcheck:
 	scripts/shellcheck.sh
+
+.PHONY: ci
+ci: lint shellcheck
