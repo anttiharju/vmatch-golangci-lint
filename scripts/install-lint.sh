@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 mkdir -p "$INSTALL_DIR"
 cd "$INSTALL_DIR" || exit
