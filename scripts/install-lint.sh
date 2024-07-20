@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euco pipefail
 
 mkdir -p "$INSTALL_DIR"
 cd "$INSTALL_DIR" || exit
