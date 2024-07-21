@@ -19,7 +19,8 @@
     "watch": "bun run ./scripts/watch-with-esbuild.ts",
     "vsce-package": "bun run vsce package",
     "package": "bun run build && bun run vsce-package",
-    "clean": "rm -r ./dist"
+    "clean": "rm -r ./dist",
+    "typecheck": "bun run tsc --noEmit"
   },
   "//": "START EXTENSION ATTRIBUTES",
   "name": "golangci-lint-updater",
