@@ -6,6 +6,9 @@ MAKEFLAGS += --warn-undefined-variables
 GOLANGCI_LINT_VERSION=$(shell cat .golangci.version)
 GOLANGCI_LINT_INSTALL_DIR=$(shell go env GOPATH)/bin
 
+PHONY: setup
+setup: install-lint install-pre-commit-hook
+
 .PHONY: install-pre-commit-hook
 install-pre-commit-hook:
 	rm -f .git/hooks/pre-commit
