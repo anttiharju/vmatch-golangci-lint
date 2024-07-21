@@ -1,4 +1,4 @@
 #!/bin/bash
 set -euo pipefail
 
-find . -iname "*.sh" -exec shellcheck {} +
+find . -path ./node_modules -prune -o -iname "*.sh" -exec shellcheck {} +
