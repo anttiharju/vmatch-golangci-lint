@@ -32,4 +32,4 @@ shellcheck:
 	scripts/shellcheck.sh
 
 .PHONY: ci
-ci: lint shellcheck
+ci: shellcheck lint
