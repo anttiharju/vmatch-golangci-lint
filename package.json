@@ -5,6 +5,7 @@
     "@types/vscode": "^1.86.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.8.3",
     "@types/bun": "latest",
     "@vscode/vsce": "^2.23.0",
     "esbuild": "^0.20.0"
