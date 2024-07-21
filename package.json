@@ -21,7 +21,11 @@
     "vsce-package": "bun run vsce package",
     "package": "bun run build && bun run vsce-package",
     "clean": "rm -r ./dist",
-    "typecheck": "bun run tsc --noEmit"
+    "typecheck": "bun run tsc --noEmit",
+    "format": "bunx biome format --write .",
+    "format:check": "bunx biome format .",
+    "lint": "bunx biome lint --write .",
+    "lint:check": "bunx biome lint ."
   },
   "//": "START EXTENSION ATTRIBUTES",
   "name": "golangci-lint-updater",
