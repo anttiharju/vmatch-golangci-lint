@@ -34,3 +34,4 @@ shellcheck:
 
 .PHONY: ci
 ci: shellcheck lint
+	bun run typecheck
