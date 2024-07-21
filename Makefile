@@ -8,6 +8,7 @@ GOLANGCI_LINT_INSTALL_DIR=$(shell go env GOPATH)/bin
 
 PHONY: setup
 setup: install-lint install-pre-commit-hook
+	bun install
 
 .PHONY: install-pre-commit-hook
 install-pre-commit-hook:
