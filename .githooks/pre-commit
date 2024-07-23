@@ -17,6 +17,7 @@ execute_if_modified() {
 	fi
 }
 
+# Not executing everything always is what keeps this script fast.
 execute_if_modified 'make shellcheck' '*.sh' '.githooks/*'
 execute_if_modified 'make lint' '*.go'
 execute_if_modified 'bun typecheck' '*.ts'
