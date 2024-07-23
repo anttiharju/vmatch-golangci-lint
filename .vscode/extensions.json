@@ -1,7 +1,7 @@
 {
 	"recommendations": [
-    "EditorConfig.EditorConfig",
+		"EditorConfig.EditorConfig",
 		"oven.bun-vscode",
-    "biomejs.biome"
+		"biomejs.biome"
 	]
 }
