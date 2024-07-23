@@ -1,0 +1,27 @@
+#!/bin/sh
+set -eu
+
+execute_if_modified() {
+	command="$1"
+	shift # Remove the first argument, which is the command, to leave the patterns
+	patterns="$*"
+
+	# shellcheck disable=2086 # Expanding patterns is the desired behavior here
+	unstaged_changes=$(git diff --name-only -- $patterns);
+	# shellcheck disable=2086
+	staged_changes=$(git diff --staged --name-only -- $patterns)
+
+	if [ -n "$unstaged_changes" ] || [ -n "$staged_changes" ]; then
+		echo "Changes detected in $patterns. Executing $command..."
+		eval "$command"
+	fi
+}
+
+execute_if_modified 'make shellcheck' '*.sh' '.githooks/*'
+execute_if_modified 'make lint' '*.go'
+execute_if_modified 'bun run typecheck' '*.ts'
+
+git diff --name-only --exit-code -- '.githooks/*' '*.sh' '*.go' '*.ts' || {
+	echo "You have unstaged changes; commit contents might not pass 'make ci'."
+	exit 1
+}

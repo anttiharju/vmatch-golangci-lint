@@ -7,14 +7,12 @@ GOLANGCI_LINT_VERSION=$(shell cat .golangci.version)
 GOLANGCI_LINT_INSTALL_DIR=$(shell go env GOPATH)/bin
 
 PHONY: setup
-setup: install-lint install-pre-commit-hook
+setup: install-lint install-hooks
 	bun install
 
-.PHONY: install-pre-commit-hook
-install-pre-commit-hook:
-	rm -f .git/hooks/pre-commit
-	cp scripts/pre-commit.sh .git/hooks/pre-commit
-	chmod +x .git/hooks/pre-commit
+.PHONY: install-hooks
+install-hooks:
+	git config --local core.hooksPath .githooks/
 
 .PHONY: install-lint
 install-lint:
