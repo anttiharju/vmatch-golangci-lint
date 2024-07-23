@@ -20,7 +20,7 @@ execute_if_modified() {
 execute_if_modified 'make shellcheck' '*.sh' '.githooks/*'
 execute_if_modified 'make lint' '*.go'
 execute_if_modified 'bun typecheck' '*.ts'
-execute_if_modified 'bun format' '*.ts' '*.json'
+execute_if_modified 'bun format:check' '*.ts' '*.json'
 
 git diff --name-only --exit-code -- '.githooks/*' '*.sh' '*.go' '*.ts' || {
 	echo "You have unstaged changes; commit contents might not pass 'make ci'."
