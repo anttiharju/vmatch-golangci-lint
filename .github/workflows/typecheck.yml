@@ -18,4 +18,4 @@ jobs:
         with:
           bun-version-file: "package.json"
       - run: bun install --frozen-lockfile
-      - run: bun run typecheck
+      - run: bun typecheck
