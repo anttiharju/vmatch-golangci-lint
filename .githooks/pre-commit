@@ -7,7 +7,7 @@ execute_if_modified() {
 	patterns="$*"
 
 	# shellcheck disable=2086 # Expanding patterns is the desired behavior here
-	unstaged_changes=$(git diff --name-only -- $patterns);
+	unstaged_changes=$(git diff --name-only -- $patterns)
 	# shellcheck disable=2086
 	staged_changes=$(git diff --staged --name-only -- $patterns)
 
