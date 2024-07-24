@@ -25,6 +25,6 @@ execute_if_modified 'bun typecheck' '*.ts'
 execute_if_modified 'bun format:check' '*.ts' '*.json' ':!.vscode'
 
 if ! git diff --quiet || [ -n "$(git ls-files --others --exclude-standard)" ]; then
-    echo "You have unstaged changes; commit contents might not pass 'make ci'."
-    exit 1
+	echo "You have unstaged changes; commit contents might not pass 'make ci'."
+	exit 1
 fi
