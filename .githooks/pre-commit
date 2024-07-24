@@ -23,7 +23,7 @@ execute_if_modified 'make lint' '*.go'
 execute_if_modified 'bun typecheck' '*.ts'
 execute_if_modified 'bun format:check' '*.ts' '*.json' ':!.vscode'
 
-git diff --name-only --exit-code -- '.githooks/*' '*.sh' '*.go' '*.ts' || {
+git diff --name-only --exit-code || {
 	echo "You have unstaged changes; commit contents might not pass 'make ci'."
 	exit 1
 }
