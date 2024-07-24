@@ -12,7 +12,7 @@ execute_if_modified() {
 	# shellcheck disable=2086
 	staged_changes=$(git diff --staged --name-only -- $patterns)
 
-	if [ -n "$unstaged_changes" ] || [ -n "$staged_changes" ] || [ -n "$untracked_changes" ]; then
+	if [ -n "$untracked_changes" ] || [ -n "$unstaged_changes" ] || [ -n "$staged_changes" ]; then
 		echo "Changes detected in $patterns. Executing $command..."
 		eval "$command"
 	fi
