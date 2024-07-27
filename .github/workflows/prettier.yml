@@ -16,6 +16,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version-file: "package.json"
+          bun-version-file: ".bun-version"
       - run: bun install --frozen-lockfile
       - run: bun prettier:check

@@ -3,7 +3,7 @@ SHELL := bash
 .SHELLFLAGS := -euo pipefail -c
 MAKEFLAGS += --warn-undefined-variables
 
-GOLANGCI_LINT_VERSION=$(shell cat .golangci.version)
+GOLANGCI_LINT_VERSION=$(shell cat .golangci-version)
 GOLANGCI_LINT_INSTALL_DIR=$(shell go env GOPATH)/bin
 
 PHONY: setup
