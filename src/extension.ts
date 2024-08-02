@@ -13,20 +13,14 @@ export const activate = (context: vscode.ExtensionContext) => {
 				);
 				const files = await workspace.findFiles("**/.golangci-version");
 
-				// Exclude workspacePath and .golangci-version from all found files
-				const relativeFiles = files.map((file) => {
-					const relativePath = path.relative(workspacePath, file.fsPath);
-					const suffixLength = ".golangci-version".length;
-					const trimmedPath = relativePath.slice(0, -suffixLength);
-					return `/${trimmedPath}`;
-				});
-
 				let message = `${workspacePath}`;
 
 				for (const file of files) {
 					const fileContent = await vscode.workspace.fs.readFile(file);
-					message += `\n${file.fsPath}`;
-					message += `\n${fileContent.toString()}\n`;
+					const suffixLength = "/.golangci-version".length;
+					const trimmedPath = file.fsPath.slice(0, -suffixLength);
+					message += `\n${trimmedPath}`;
+					message += `\n${fileContent.toString()}`;
 				}
 
 				window.showInformationMessage(message);
