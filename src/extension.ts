@@ -3,9 +3,8 @@ import { workspace, window } from "vscode";
 import * as path from "node:path";
 
 export const activate = (context: vscode.ExtensionContext) => {
-	const disposable = vscode.commands.registerCommand(
-		"bun-vscode-extension.helloworld",
-		async () => {
+	const onSaveDisposable = vscode.workspace.onDidSaveTextDocument(
+		async (document) => {
 			let workspacePath = "";
 			if (workspace.workspaceFolders?.length) {
 				workspacePath = path.normalize(
@@ -28,7 +27,7 @@ export const activate = (context: vscode.ExtensionContext) => {
 		},
 	);
 
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(onSaveDisposable);
 };
 
 export const deactivate = () => {};
