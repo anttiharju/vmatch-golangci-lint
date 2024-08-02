@@ -21,7 +21,14 @@ export const activate = (context: vscode.ExtensionContext) => {
 					return `/${trimmedPath}`;
 				});
 
-				const message = `${workspacePath},${relativeFiles.join(",")}`;
+				let message = `${workspacePath}`;
+
+				for (const file of files) {
+					const fileContent = await vscode.workspace.fs.readFile(file);
+					message += `\n${file.fsPath}`;
+					message += `\n${fileContent.toString()}\n`;
+				}
+
 				window.showInformationMessage(message);
 			}
 		},
