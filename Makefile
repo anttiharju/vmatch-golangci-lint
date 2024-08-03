@@ -7,7 +7,7 @@ GOLANGCI_LINT_VERSION=$(shell cat .golangci-version)
 GOLANGCI_LINT_INSTALL_DIR=$(shell go env GOPATH)/bin
 
 PHONY: setup
-setup: install-lint install-hooks
+setup: install-hooks install-lint
 
 .PHONY: install-hooks
 install-hooks:
