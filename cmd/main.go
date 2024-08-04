@@ -7,7 +7,7 @@ import (
 
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/app"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/config"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/pkg/exitcode"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exitcode"
 )
 
 func main() {

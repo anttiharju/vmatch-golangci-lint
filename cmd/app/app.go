@@ -7,8 +7,8 @@ import (
 	"os/exec"
 
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/config"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/pkg/exitcode"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/pkg/pathfinder"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exitcode"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/pathfinder"
 )
 
 type App struct {
