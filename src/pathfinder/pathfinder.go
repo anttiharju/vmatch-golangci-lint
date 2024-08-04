@@ -5,8 +5,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exit"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exit/exitcode"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/src/exit"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/src/exit/exitcode"
 )
 
 func GetGoPath() string {

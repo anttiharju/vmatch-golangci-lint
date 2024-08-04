@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exit"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exit/exitcode"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/pathfinder"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/src/exit"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/src/exit/exitcode"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/src/pathfinder"
 )
 
 func GetVersion(filename string) string {
