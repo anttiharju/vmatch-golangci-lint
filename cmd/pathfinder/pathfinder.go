@@ -1,25 +1,23 @@
 package pathfinder
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 	"strings"
 
+	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exit"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exitcode"
 )
 
 func GetGoPath() string {
 	goBinPath, err := exec.LookPath("go")
 	if err != nil {
-		fmt.Println("golangci-lint-updater: Cannot find Go in PATH")
-		os.Exit(exitcode.NoGo)
+		exit.WithMessage(exitcode.NoGo, "Cannot find Go in PATH")
 	}
 
 	goPathBytes, err := exec.Command(goBinPath, "env", "GOPATH").Output()
 	if err != nil {
-		fmt.Println("golangci-lint-updater: Cannot get GOPATH")
-		os.Exit(exitcode.GoPathIssue)
+		exit.WithMessage(exitcode.GoPathIssue, "Cannot get GOPATH")
 	}
 
 	goPath := string(goPathBytes)
@@ -30,8 +28,7 @@ func GetGoPath() string {
 func GetBinPath() string {
 	binPath, err := os.Executable()
 	if err != nil {
-		fmt.Println("golangci-lint-updater: Cannot get executable path")
-		os.Exit(exitcode.BinPathIssue)
+		exit.WithMessage(exitcode.BinPathIssue, "Cannot get executable path")
 	}
 
 	return binPath
@@ -47,8 +44,7 @@ func GetBinDir() string {
 func GetWorkDir() string {
 	workdir, err := os.Getwd()
 	if err != nil {
-		fmt.Println("golangci-lint-updater: Cannot get working directory")
-		os.Exit(exitcode.WorkDirIssue)
+		exit.WithMessage(exitcode.WorkDirIssue, "Cannot get working directory")
 	}
 
 	return workdir

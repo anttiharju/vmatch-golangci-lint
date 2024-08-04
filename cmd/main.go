@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"os/signal"
 
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/app"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/config"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exit"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exitcode"
 )
 
@@ -19,13 +19,12 @@ func main() {
 	config := config.NewConfig()
 	app := app.NewApp(config)
 	exitCode := app.Run(ctx)
-	os.Exit(exitCode)
+	exit.Now(exitCode)
 }
 
 func listenInterrupts() {
 	interruptCh := make(chan os.Signal, 1)
 	signal.Notify(interruptCh, os.Interrupt)
 	<-interruptCh
-	fmt.Println("golangci-lint-updater: Interrupted")
-	os.Exit(exitcode.Interrupt)
+	exit.WithMessage(exitcode.Interrupt, "Interrupted")
 }
