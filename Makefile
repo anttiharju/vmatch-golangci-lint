@@ -7,7 +7,6 @@ GOLANGCI-LINT_VERSION=$(shell cat .golangci-version)
 GOLANGCI-LINT_INSTALL_DIR=$(shell go env GOPATH)/bin
 
 APP_NAME=golangci-lint-updater
-WORKSPACE_FOLDER=myproject
 
 setup: install-hooks install-lint
 
@@ -34,7 +33,7 @@ build:
 run: build rerun
 
 rerun:
-	APP_NAME=$(APP_NAME) bin/$(APP_NAME) $(WORKSPACE_FOLDER)
+	APP_NAME=$(APP_NAME) bin/$(APP_NAME)
 
 clean:
 	rm -rf bin/
