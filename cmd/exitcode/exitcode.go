@@ -1,12 +1,12 @@
 package exitcode
 
 const (
-	Success              = 0
-	Interrupt            = 1
-	NoGo                 = 2
-	GoPathIssue          = 3
-	BinPathIssue         = 4
-	WorkDirIssue         = 5
-	VersionReadFileIssue = 6
-	VersionIssue         = 7
+	Success = iota
+	Interrupt
+	NoGo
+	GoPathIssue
+	BinPathIssue
+	WorkDirIssue
+	VersionReadFileIssue
+	VersionIssue
 )
