@@ -35,3 +35,15 @@ func GetBinPath() string {
 
 	return binPath
 }
+
+func GetWorkDir() string {
+	pwdBytes, err := exec.Command("pwd").Output()
+	if err != nil {
+		fmt.Println("Cannot execute pwd")
+		os.Exit(exitcode.PWDIssue)
+	}
+
+	wd := string(pwdBytes) // p stands for print
+
+	return wd
+}

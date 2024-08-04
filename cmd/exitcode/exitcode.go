@@ -6,4 +6,5 @@ const (
 	NoGo         = 2
 	GoPathIssue  = 3
 	BinPathIssue = 4
+	PWDIssue     = 5
 )
