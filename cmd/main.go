@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"os/signal"
 
@@ -25,5 +26,6 @@ func listenInterrupts() {
 	interruptCh := make(chan os.Signal, 1)
 	signal.Notify(interruptCh, os.Interrupt)
 	<-interruptCh
+	fmt.Println("golangci-lint-updater: Interrupted")
 	os.Exit(exitcode.Interrupt)
 }

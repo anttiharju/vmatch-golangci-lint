@@ -1,6 +1,7 @@
 package versionfinder
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -17,6 +18,7 @@ func GetVersion(filename string) string {
 		if _, err := os.Stat(filePath); err == nil {
 			content, err := os.ReadFile(filePath)
 			if err != nil {
+				fmt.Println("golangci-lint-updater: Cannot read version file '", filePath, "'")
 				os.Exit(exitcode.VersionReadFileIssue)
 			}
 
@@ -31,6 +33,7 @@ func GetVersion(filename string) string {
 		workDir = parentDir
 	}
 
+	fmt.Println("golangci-lint-updater: Cannot find version file '", filename, "'")
 	os.Exit(exitcode.VersionIssue)
 
 	return "" // unreachable but compiler needs it (1.22.5)

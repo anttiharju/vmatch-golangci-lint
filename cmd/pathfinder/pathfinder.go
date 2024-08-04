@@ -12,13 +12,13 @@ import (
 func GetGoPath() string {
 	goBinPath, err := exec.LookPath("go")
 	if err != nil {
-		fmt.Println("Cannot find Go in PATH")
+		fmt.Println("golangci-lint-updater: Cannot find Go in PATH")
 		os.Exit(exitcode.NoGo)
 	}
 
 	goPathBytes, err := exec.Command(goBinPath, "env", "GOPATH").Output()
 	if err != nil {
-		fmt.Println("Cannot get GOPATH")
+		fmt.Println("golangci-lint-updater: Cannot get GOPATH")
 		os.Exit(exitcode.GoPathIssue)
 	}
 
@@ -30,6 +30,7 @@ func GetGoPath() string {
 func GetBinPath() string {
 	binPath, err := os.Executable()
 	if err != nil {
+		fmt.Println("golangci-lint-updater: Cannot get executable path")
 		os.Exit(exitcode.BinPathIssue)
 	}
 
@@ -44,10 +45,11 @@ func GetBinDir() string {
 }
 
 func GetWorkDir() string {
-	wd, err := os.Getwd()
+	workdir, err := os.Getwd()
 	if err != nil {
+		fmt.Println("golangci-lint-updater: Cannot get working directory")
 		os.Exit(exitcode.WorkDirIssue)
 	}
 
-	return wd
+	return workdir
 }
