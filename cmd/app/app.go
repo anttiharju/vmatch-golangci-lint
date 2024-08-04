@@ -7,6 +7,7 @@ import (
 	"os/exec"
 
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/config"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/debug"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exitcode"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/pathfinder"
 )
@@ -24,7 +25,9 @@ func NewApp(config *config.Config) *App {
 }
 
 func (a *App) Run(_ context.Context) int {
-	// workspaceFolder := os.Args[1] // provided by VS Code
+	workspaceFolder := os.Args[1] // provided by VS Code
+	debug.WriteToFile(workspaceFolder)
+
 	args := os.Args[2:]
 	linterOutput, _ := exec.Command(a.getGolangCILintPath(), args...).Output()
 	fmt.Println(string(linterOutput))

@@ -36,6 +36,13 @@ func GetBinPath() string {
 	return binPath
 }
 
+func GetBinDir() string {
+	binPath := GetBinPath()
+	binDir := binPath[:strings.LastIndex(binPath, string(os.PathSeparator))]
+
+	return binDir
+}
+
 func GetWorkDir() string {
 	pwdBytes, err := exec.Command("pwd").Output()
 	if err != nil {
