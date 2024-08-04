@@ -44,13 +44,10 @@ func GetBinDir() string {
 }
 
 func GetWorkDir() string {
-	pwdBytes, err := exec.Command("pwd").Output()
+	wd, err := os.Getwd()
 	if err != nil {
-		fmt.Println("Cannot execute pwd")
-		os.Exit(exitcode.PWDIssue)
+		os.Exit(exitcode.WorkDirIssue)
 	}
-
-	wd := strings.TrimSpace(string(pwdBytes)) // p stands for print
 
 	return wd
 }
