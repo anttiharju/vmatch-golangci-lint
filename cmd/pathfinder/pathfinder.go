@@ -26,3 +26,12 @@ func GetGoPath() string {
 
 	return strings.TrimSpace(goPath)
 }
+
+func GetBinPath() string {
+	binPath, err := os.Executable()
+	if err != nil {
+		os.Exit(exitcode.BinPathIssue)
+	}
+
+	return binPath
+}
