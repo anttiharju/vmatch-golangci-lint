@@ -50,7 +50,7 @@ func GetWorkDir() string {
 		os.Exit(exitcode.PWDIssue)
 	}
 
-	wd := string(pwdBytes) // p stands for print
+	wd := strings.TrimSpace(string(pwdBytes)) // p stands for print
 
 	return wd
 }

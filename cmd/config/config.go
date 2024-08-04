@@ -3,9 +3,15 @@ package config
 import "os"
 
 type Config struct {
-	InstallDir string
+	InstallDir      string
+	VersionFileName string
 }
 
 func NewConfig() *Config {
-	return &Config{InstallDir: string(os.PathSeparator) + "bin"}
+	cfg := &Config{
+		InstallDir:      string(os.PathSeparator) + "bin",
+		VersionFileName: ".golangci-version",
+	}
+
+	return cfg
 }

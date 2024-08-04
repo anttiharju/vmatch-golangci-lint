@@ -9,17 +9,20 @@ import (
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/config"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exitcode"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/pathfinder"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/versionfinder"
 )
 
 type App struct {
-	config *config.Config
-	goPath string
+	config         *config.Config
+	goPath         string
+	desiredVersion string
 }
 
 func NewApp(config *config.Config) *App {
 	return &App{
-		config: config,
-		goPath: pathfinder.GetGoPath(),
+		config:         config,
+		goPath:         pathfinder.GetGoPath(),
+		desiredVersion: versionfinder.GetVersion(config.VersionFileName),
 	}
 }
 
