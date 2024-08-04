@@ -64,7 +64,6 @@ linters:
     - predeclared
     - promlinter
     - reassign
-    - revive
     - rowserrcheck
     - sloglint
     - spancheck
@@ -97,3 +96,5 @@ linters:
     - misspell
     - protogetter
     - whitespace
+  disable:
+    - revive # Prevents encapsulation? "unexported-return: exported func NewApp returns unexported type *app.app, which can be annoying to use"
