@@ -49,3 +49,7 @@ rerun:
 .PHONY: clean
 clean:
 	rm -rf bin/
+
+.PHONY: copy-path
+copy-path:
+	@echo -n "$(shell pwd)/bin/$(APP_NAME)" | pbcopy
