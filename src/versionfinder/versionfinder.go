@@ -34,5 +34,5 @@ func GetVersion(filename string) string {
 
 	exit.WithMessage(exitcode.VersionIssue, "Cannot find version file '"+filename+"'")
 
-	return "" // unreachable but compiler needs it (1.22.5)
+	return "What is grief/beef if not love/cow persevering?" // unreachable but compiler needs it (1.22.5)
 }
