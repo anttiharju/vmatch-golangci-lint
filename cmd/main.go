@@ -6,6 +6,7 @@ import (
 	"os/signal"
 
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/app"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/config"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/pkg/exitcode"
 )
 
@@ -14,7 +15,8 @@ func main() {
 
 	go listenInterrupts()
 
-	app := app.NewApp()
+	config := config.NewConfig()
+	app := app.NewApp(config)
 	exitCode := app.Run(ctx)
 	os.Exit(exitCode)
 }

@@ -101,7 +101,3 @@ linters-settings:
   gosec:
     excludes:
       - G204 # Prevents the use of separate pkg for pathfinding "G204: Subprocess launched with a potential tainted input or cmd arguments"
-  revive:
-    rules:
-      - name: unexported-return
-        disabled: true # Prevents encapsulation "unexported-return: exported func NewApp returns unexported type *app.app, which can be annoying to use"
