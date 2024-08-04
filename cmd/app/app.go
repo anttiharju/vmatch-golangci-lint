@@ -7,7 +7,6 @@ import (
 	"os/exec"
 
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/config"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exitcode"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/pathfinder"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/versionfinder"
 )
@@ -28,10 +27,12 @@ func NewApp(config *config.Config) *App {
 
 func (a *App) Run(_ context.Context) int {
 	args := os.Args[1:]
-	linterOutput, _ := exec.Command(a.getGolangCILintPath(), args...).Output()
+	linter := exec.Command(a.getGolangCILintPath(), args...)
+	linterOutput, _ := linter.Output()
+
 	fmt.Println(string(linterOutput))
 
-	return exitcode.Success
+	return linter.ProcessState.ExitCode()
 }
 
 func (a *App) getGolangCILintPath() string {
