@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exit"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exitcode"
+	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/exit/exitcode"
 	"github.com/anttiharju/homebrew-golangci-lint-updater/cmd/pathfinder"
 )
 
