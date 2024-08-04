@@ -33,5 +33,5 @@ func GetVersion(filename string) string {
 
 	os.Exit(exitcode.VersionIssue)
 
-	return "" // unreachable but compiler needs it
+	return "" // unreachable but compiler needs it (1.22.5)
 }
