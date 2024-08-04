@@ -7,6 +7,7 @@ GOLANGCI-LINT_VERSION=$(shell cat .golangci-version)
 GOLANGCI-LINT_INSTALL_DIR=$(shell go env GOPATH)/bin
 
 APP_NAME=golangci-lint-updater
+WORKSPACE_FOLDER=myproject
 
 PHONY: setup
 setup: install-hooks install-lint
@@ -39,12 +40,11 @@ build:
 	APP_NAME=$(APP_NAME) scripts/build.sh
 
 .PHONY: run
-run: build
-	APP_NAME=$(APP_NAME) bin/$(APP_NAME)
+run: build rerun
 
 .PHONY: rerun
 rerun:
-	APP_NAME=$(APP_NAME) bin/$(APP_NAME)
+	APP_NAME=$(APP_NAME) bin/$(APP_NAME) $(WORKSPACE_FOLDER)
 
 .PHONY: clean
 clean:

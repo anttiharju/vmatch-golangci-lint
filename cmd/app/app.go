@@ -24,7 +24,8 @@ func NewApp(config *config.Config) *App {
 }
 
 func (a *App) Run(_ context.Context) int {
-	args := os.Args[1:]
+	// workspaceFolder := os.Args[1] // provided by VS Code
+	args := os.Args[2:]
 	linterOutput, _ := exec.Command(a.getGolangCILintPath(), args...).Output()
 	fmt.Println(string(linterOutput))
 
