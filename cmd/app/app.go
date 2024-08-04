@@ -25,9 +25,8 @@ func NewApp(config *config.Config) *App {
 
 func (a *App) Run(_ context.Context) int {
 	args := os.Args[1:]
-
-	out, _ := exec.Command(a.goPath+a.config.InstallDir+"/golangci-lint", args...).Output()
-	fmt.Println(string(out))
+	linterOutput, _ := exec.Command(a.goPath+a.config.InstallDir+"/golangci-lint", args...).Output()
+	fmt.Println(string(linterOutput))
 
 	return exitcode.Success
 }
