@@ -41,4 +41,8 @@ clean:
 copy-path:
 	@echo -n "$(shell pwd)/bin/$(APP_NAME)" | pbcopy
 
+simple-benchmark:
+	@time /Users/antti/go/bin/golangci-lint version
+	@time ./bin/golangci-lint-updater version
+
 .PHONY: setup install-hooks install-lint ci shellcheck lint lint-fix build run rerun clean copy-path
