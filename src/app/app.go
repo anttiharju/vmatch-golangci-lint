@@ -30,7 +30,7 @@ func (a *App) Run(_ context.Context) int {
 	linter := exec.Command(a.getGolangCILintPath(), args...)
 	linterOutput, _ := linter.Output()
 
-	fmt.Println(string(linterOutput))
+	fmt.Print(string(linterOutput))
 
 	return linter.ProcessState.ExitCode()
 }
