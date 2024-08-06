@@ -26,5 +26,5 @@ func listenInterrupts() {
 	interruptCh := make(chan os.Signal, 1)
 	signal.Notify(interruptCh, os.Interrupt)
 	<-interruptCh
-	exit.WithMessage(exitcode.Interrupt, "Interrupted")
+	exit.WithNewlineMessage(exitcode.Interrupt, "Interrupted")
 }
