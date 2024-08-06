@@ -33,7 +33,7 @@ build:
 run: build rerun
 
 rerun:
-	APP_NAME=$(APP_NAME) bin/$(APP_NAME)
+	APP_NAME=$(APP_NAME) bin/$(APP_NAME) version
 
 clean:
 	rm -rf bin/
