@@ -28,12 +28,12 @@ lint-fix:
 	$(GOLANGCI-LINT_INSTALL_DIR)/golangci-lint run --fix
 
 build:
-	APP_NAME=$(APP_NAME) scripts/build.sh
+	@APP_NAME=$(APP_NAME) scripts/build.sh
 
 run: build rerun
 
 rerun:
-	APP_NAME=$(APP_NAME) bin/$(APP_NAME) version
+	@APP_NAME=$(APP_NAME) bin/$(APP_NAME) version
 
 clean:
 	rm -rf bin/
