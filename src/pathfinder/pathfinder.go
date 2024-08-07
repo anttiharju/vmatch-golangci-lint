@@ -2,28 +2,11 @@ package pathfinder
 
 import (
 	"os"
-	"os/exec"
 	"strings"
 
 	"github.com/anttiharju/vmatch-golangci-lint/src/exit"
 	"github.com/anttiharju/vmatch-golangci-lint/src/exit/exitcode"
 )
-
-func GetGoPath() string {
-	goBinPath, err := exec.LookPath("go")
-	if err != nil {
-		exit.WithMessage(exitcode.NoGo, "Cannot find Go in PATH")
-	}
-
-	goPathBytes, err := exec.Command(goBinPath, "env", "GOPATH").Output()
-	if err != nil {
-		exit.WithMessage(exitcode.GoPathIssue, "Cannot get GOPATH")
-	}
-
-	goPath := string(goPathBytes)
-
-	return strings.TrimSpace(goPath)
-}
 
 func GetBinPath() string {
 	binPath, err := os.Executable()

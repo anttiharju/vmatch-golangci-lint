@@ -13,7 +13,6 @@ import (
 
 type App struct {
 	config         *config.Config
-	goPath         string
 	desiredVersion string
 	installPath    string
 }
@@ -27,7 +26,6 @@ func NewApp(config *config.Config) *App {
 
 	return &App{
 		config:         config,
-		goPath:         pathfinder.GetGoPath(),
 		desiredVersion: desiredVersion,
 		installPath:    installPath,
 	}
