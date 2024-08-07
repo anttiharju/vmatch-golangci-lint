@@ -6,6 +6,7 @@ import (
 	"github.com/anttiharju/vmatch-golangci-lint/src/finder"
 )
 
+// TODO: remove deps to other packages
 func getFilePath() string {
 	return finder.GetBinDir() + string(os.PathSeparator) + "debug.txt"
 }
