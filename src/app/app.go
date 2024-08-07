@@ -6,9 +6,9 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/anttiharju/homebrew-golangci-lint-updater/src/config"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/src/pathfinder"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/src/versionfinder"
+	"github.com/anttiharju/vmatch-golangci-lint/src/config"
+	"github.com/anttiharju/vmatch-golangci-lint/src/pathfinder"
+	"github.com/anttiharju/vmatch-golangci-lint/src/versionfinder"
 )
 
 type App struct {

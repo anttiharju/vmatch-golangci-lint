@@ -9,7 +9,7 @@ type Config struct {
 
 func NewConfig() *Config {
 	return &Config{
-		InstallDir:      string(os.PathSeparator) + "bin", // TODO: switch bin to golangci-lint-updater
+		InstallDir:      string(os.PathSeparator) + "bin", // TODO: switch to a subdir under vmatch-golangci-lint bin location
 		VersionFileName: ".golangci-version",
 	}
 }

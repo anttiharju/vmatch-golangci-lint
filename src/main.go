@@ -5,10 +5,10 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/anttiharju/homebrew-golangci-lint-updater/src/app"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/src/config"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/src/exit"
-	"github.com/anttiharju/homebrew-golangci-lint-updater/src/exit/exitcode"
+	"github.com/anttiharju/vmatch-golangci-lint/src/app"
+	"github.com/anttiharju/vmatch-golangci-lint/src/config"
+	"github.com/anttiharju/vmatch-golangci-lint/src/exit"
+	"github.com/anttiharju/vmatch-golangci-lint/src/exit/exitcode"
 )
 
 func main() {

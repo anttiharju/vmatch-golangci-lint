@@ -6,7 +6,7 @@ MAKEFLAGS += --warn-undefined-variables
 GOLANGCI-LINT_VERSION=$(shell cat .golangci-version)
 GOLANGCI-LINT_INSTALL_DIR=$(shell go env GOPATH)/bin
 
-APP_NAME=golangci-lint-updater
+APP_NAME=vmatch-golangci-lint
 
 setup: install-hooks install-lint
 
@@ -43,6 +43,6 @@ copy-path:
 
 simple-benchmark:
 	@time /Users/antti/go/bin/golangci-lint version
-	@time ./bin/golangci-lint-updater version
+	@time ./bin/$(APP_NAME) version
 
 .PHONY: setup install-hooks install-lint ci shellcheck lint lint-fix build run rerun clean copy-path

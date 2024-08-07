@@ -3,7 +3,7 @@ package debug
 import (
 	"os"
 
-	"github.com/anttiharju/homebrew-golangci-lint-updater/src/pathfinder"
+	"github.com/anttiharju/vmatch-golangci-lint/src/pathfinder"
 )
 
 func getFilePath() string {

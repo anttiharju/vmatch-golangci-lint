@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-const prefix = "golangci-lint-updater: "
+const prefix = "vmatch-golangci-lint: "
 
 // os.Exit doesn't respect defers so it's kind of neat to wrap it in a package to avoid the footgun
 
