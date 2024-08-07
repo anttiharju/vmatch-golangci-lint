@@ -8,20 +8,20 @@ import (
 	"github.com/anttiharju/vmatch-golangci-lint/src/exit/exitcode"
 )
 
-func GetBinPath() string {
+func GetBinDir() string {
+	binPath := getBin()
+	binDir := binPath[:strings.LastIndex(binPath, string(os.PathSeparator))]
+
+	return binDir
+}
+
+func getBin() string {
 	binPath, err := os.Executable()
 	if err != nil {
 		exit.WithMessage(exitcode.BinPathIssue, "Cannot get executable path")
 	}
 
 	return binPath
-}
-
-func GetBinDir() string {
-	binPath := GetBinPath()
-	binDir := binPath[:strings.LastIndex(binPath, string(os.PathSeparator))]
-
-	return binDir
 }
 
 func GetWorkDir() string {
