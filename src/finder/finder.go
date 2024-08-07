@@ -10,6 +10,8 @@ import (
 	"github.com/anttiharju/vmatch-golangci-lint/src/exit/exitcode"
 )
 
+// TODO: split me again
+
 func GetBinDir() string {
 	binPath := getBin()
 	binDir := binPath[:strings.LastIndex(binPath, string(os.PathSeparator))]
