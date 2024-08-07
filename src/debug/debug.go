@@ -12,5 +12,6 @@ func getFilePath() string {
 
 func WriteToFile(s string) {
 	bytes := []byte(s)
-	_ = os.WriteFile(getFilePath(), bytes, 0o600)
+	ownerOnlyRW := os.FileMode(0o600)
+	_ = os.WriteFile(getFilePath(), bytes, ownerOnlyRW)
 }
