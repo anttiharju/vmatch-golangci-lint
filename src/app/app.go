@@ -51,8 +51,8 @@ func (a *App) install(_ context.Context) {
 	sh := "sh -s -- -b "
 	cmd := curl + pipe + sh + a.installPath + " " + a.desiredVersion
 	execCmd := exec.Command("sh", "-c", cmd)
-	output, _ := execCmd.Output()
-	fmt.Println(string(output))
+	execCmd.Start()
+	execCmd.Wait()
 }
 
 func (a *App) getGolangCILintPath() string {
