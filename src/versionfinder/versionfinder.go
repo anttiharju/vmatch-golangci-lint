@@ -21,7 +21,7 @@ func GetVersion(filename string) string {
 				exit.WithMessage(exitcode.VersionReadFileIssue, "Cannot read version file '"+filePath+"'")
 			}
 
-			return strings.TrimSpace(string(content))
+			return strings.TrimSpace(string(content)) // TODO: do input validation
 		}
 
 		parentDir := filepath.Dir(workDir)
