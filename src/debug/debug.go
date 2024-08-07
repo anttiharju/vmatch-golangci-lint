@@ -11,6 +11,6 @@ func getFilePath() string {
 }
 
 func WriteToFile(s string) {
-	d1 := []byte(s)
-	_ = os.WriteFile(getFilePath(), d1, 0o600)
+	bytes := []byte(s)
+	_ = os.WriteFile(getFilePath(), bytes, 0o600)
 }
