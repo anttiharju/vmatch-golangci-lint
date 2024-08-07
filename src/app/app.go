@@ -28,7 +28,9 @@ func NewApp(versionFileName string) *App {
 }
 
 func (a *App) Run(ctx context.Context) int {
-	a.install(ctx)
+	if a.needToDownload() {
+		a.install(ctx)
+	}
 
 	args := os.Args[1:]
 	linter := exec.Command(a.getGolangCILintPath(), args...)
@@ -37,6 +39,11 @@ func (a *App) Run(ctx context.Context) int {
 	fmt.Print(string(linterOutput))
 
 	return linter.ProcessState.ExitCode()
+}
+
+func (a *App) needToDownload() bool {
+	_, err := os.Stat(a.getGolangCILintPath())
+	return os.IsNotExist(err)
 }
 
 func (a *App) install(_ context.Context) {
