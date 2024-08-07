@@ -9,4 +9,5 @@ const (
 	WorkDirIssue
 	VersionReadFileIssue
 	VersionIssue
+	VersionValidationIssue
 )

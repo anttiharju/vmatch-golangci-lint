@@ -24,6 +24,7 @@ func NewApp(config *config.Config) *App {
 	v := string(desiredVersion[0])
 	numbers := desiredVersion[1:]
 	installPath := pathfinder.GetBinDir() + ps + v + ps + numbers
+
 	return &App{
 		config:         config,
 		goPath:         pathfinder.GetGoPath(),
@@ -34,6 +35,7 @@ func NewApp(config *config.Config) *App {
 
 func (a *App) Run(ctx context.Context) int {
 	a.install(ctx)
+
 	args := os.Args[1:]
 	linter := exec.Command(a.getGolangCILintPath(), args...)
 	linterOutput, _ := linter.Output()

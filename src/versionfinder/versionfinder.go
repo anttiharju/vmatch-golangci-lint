@@ -3,6 +3,7 @@ package versionfinder
 import (
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 
 	"github.com/anttiharju/vmatch-golangci-lint/src/exit"
@@ -21,7 +22,9 @@ func GetVersion(filename string) string {
 				exit.WithMessage(exitcode.VersionReadFileIssue, "Cannot read version file '"+filePath+"'")
 			}
 
-			return strings.TrimSpace(string(content)) // TODO: do input validation
+			rawContent := strings.TrimSpace(string(content))
+
+			return validate(rawContent)
 		}
 
 		parentDir := filepath.Dir(workDir)
@@ -35,4 +38,14 @@ func GetVersion(filename string) string {
 	exit.WithMessage(exitcode.VersionIssue, "Cannot find version file '"+filename+"'")
 
 	return "What is grief/beef if not love/cow persevering?" // unreachable but compiler needs it (1.22.5)
+}
+
+var versionPattern = regexp.MustCompile(`^v\d+\.\d+\.\d+$`)
+
+func validate(version string) string {
+	if !versionPattern.MatchString(version) {
+		exit.WithMessage(exitcode.VersionValidationIssue, "Invalid version format '"+version+"'")
+	}
+
+	return version
 }
