@@ -15,13 +15,20 @@ type App struct {
 	config         *config.Config
 	goPath         string
 	desiredVersion string
+	installPath    string
 }
 
 func NewApp(config *config.Config) *App {
+	desiredVersion := versionfinder.GetVersion(config.VersionFileName)
+	ps := string(os.PathSeparator)
+	v := string(desiredVersion[0])
+	numbers := desiredVersion[1:]
+	installPath := pathfinder.GetBinDir() + ps + v + ps + numbers
 	return &App{
 		config:         config,
 		goPath:         pathfinder.GetGoPath(),
-		desiredVersion: versionfinder.GetVersion(config.VersionFileName),
+		desiredVersion: desiredVersion,
+		installPath:    installPath,
 	}
 }
 
@@ -37,21 +44,17 @@ func (a *App) Run(ctx context.Context) int {
 }
 
 func (a *App) install(_ context.Context) {
-	//nolint:lll // Official binary install command, it is what it is
+	//nolint:lll // Official binary install command:
 	// curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.59.1
 	curl := "curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh"
 	pipe := " | "
 	sh := "sh -s -- -b "
-	ps := string(os.PathSeparator)
-	v := string(a.desiredVersion[0])
-	numbers := a.desiredVersion[1:]
-	installPath := pathfinder.GetBinDir() + ps + v + ps + numbers + " " + a.desiredVersion
-	cmd := curl + pipe + sh + installPath
+	cmd := curl + pipe + sh + a.installPath + " " + a.desiredVersion
 	execCmd := exec.Command("sh", "-c", cmd)
 	output, _ := execCmd.Output()
 	fmt.Println(string(output))
 }
 
 func (a *App) getGolangCILintPath() string {
-	return a.goPath + a.config.InstallDir + string(os.PathSeparator) + "golangci-lint"
+	return a.installPath + string(os.PathSeparator) + "golangci-lint"
 }
