@@ -16,7 +16,8 @@ type App struct {
 
 func NewApp(versionFileName string) *App {
 	desiredVersion := finder.GetVersion(versionFileName)
-	installPath := finder.GetBinDir() + string(os.PathSeparator) + desiredVersion
+	ps := string(os.PathSeparator)
+	installPath := finder.GetBinDir() + ps + "v" + ps + desiredVersion
 
 	return &App{
 		desiredVersion: desiredVersion,
@@ -49,7 +50,7 @@ func (a *App) install(_ context.Context) {
 	curl := "curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh"
 	pipe := " | "
 	sh := "sh -s -- -b "
-	command := curl + pipe + sh + a.installPath + " " + a.desiredVersion
+	command := curl + pipe + sh + a.installPath + " v" + a.desiredVersion
 	cmd := exec.Command("sh", "-c", command)
 	cmd.Start()
 	cmd.Wait()
