@@ -43,7 +43,9 @@ func (a *App) install(_ context.Context) {
 	pipe := " | "
 	sh := "sh -s -- -b "
 	ps := string(os.PathSeparator)
-	installPath := pathfinder.GetBinDir() + ps + a.desiredVersion + ps + " " + a.desiredVersion // TODO: do v/1.59.1/ instead of v1.59.1
+	v := string(a.desiredVersion[0])
+	numbers := a.desiredVersion[1:]
+	installPath := pathfinder.GetBinDir() + ps + v + ps + numbers + " " + a.desiredVersion
 	cmd := curl + pipe + sh + installPath
 	execCmd := exec.Command("sh", "-c", cmd)
 	output, _ := execCmd.Output()
