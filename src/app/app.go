@@ -7,8 +7,7 @@ import (
 	"os/exec"
 
 	"github.com/anttiharju/vmatch-golangci-lint/src/config"
-	"github.com/anttiharju/vmatch-golangci-lint/src/pathfinder"
-	"github.com/anttiharju/vmatch-golangci-lint/src/versionfinder"
+	"github.com/anttiharju/vmatch-golangci-lint/src/finder"
 )
 
 type App struct {
@@ -18,11 +17,11 @@ type App struct {
 }
 
 func NewApp(config *config.Config) *App {
-	desiredVersion := versionfinder.GetVersion(config.VersionFileName)
+	desiredVersion := finder.GetVersion(config.VersionFileName)
 	ps := string(os.PathSeparator)
 	v := string(desiredVersion[0])
 	numbers := desiredVersion[1:]
-	installPath := pathfinder.GetBinDir() + ps + v + ps + numbers
+	installPath := finder.GetBinDir() + ps + v + ps + numbers
 
 	return &App{
 		config:         config,
