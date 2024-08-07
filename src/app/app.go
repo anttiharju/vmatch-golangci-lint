@@ -41,6 +41,7 @@ func (a *App) Run(ctx context.Context) int {
 
 func (a *App) needToDownload() bool {
 	_, err := os.Stat(a.getGolangCILintPath())
+
 	return os.IsNotExist(err)
 }
 
@@ -52,8 +53,8 @@ func (a *App) install(_ context.Context) {
 	sh := "sh -s -- -b "
 	command := curl + pipe + sh + a.installPath + " v" + a.desiredVersion
 	cmd := exec.Command("sh", "-c", command)
-	cmd.Start()
-	cmd.Wait()
+	_ = cmd.Start() // TODO: Handle errors
+	_ = cmd.Wait()  // TODO: Handle errors
 }
 
 func (a *App) getGolangCILintPath() string {
