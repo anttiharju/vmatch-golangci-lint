@@ -4,8 +4,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 
 GOLANGCI-LINT_VERSION=$(shell cat .golangci-version)
-INSERT_SLASH_AFTER_V=$(shell echo $(GOLANGCI-LINT_VERSION) | sed 's/^v/v\//')
-GOLANGCI-LINT_INSTALL_DIR=$(shell pwd)/bin/$(INSERT_SLASH_AFTER_V)
+GOLANGCI-LINT_INSTALL_DIR=$(shell pwd)/bin/$(GOLANGCI-LINT_VERSION)
 
 APP_NAME=vmatch-golangci-lint
 

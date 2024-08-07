@@ -16,10 +16,7 @@ type App struct {
 
 func NewApp(versionFileName string) *App {
 	desiredVersion := finder.GetVersion(versionFileName)
-	ps := string(os.PathSeparator)
-	v := string(desiredVersion[0])
-	numbers := desiredVersion[1:]
-	installPath := finder.GetBinDir() + ps + v + ps + numbers
+	installPath := finder.GetBinDir() + string(os.PathSeparator) + desiredVersion
 
 	return &App{
 		desiredVersion: desiredVersion,
