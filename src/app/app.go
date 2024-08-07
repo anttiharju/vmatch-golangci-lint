@@ -52,10 +52,10 @@ func (a *App) install(_ context.Context) {
 	curl := "curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh"
 	pipe := " | "
 	sh := "sh -s -- -b "
-	cmd := curl + pipe + sh + a.installPath + " " + a.desiredVersion
-	execCmd := exec.Command("sh", "-c", cmd)
-	execCmd.Start()
-	execCmd.Wait()
+	command := curl + pipe + sh + a.installPath + " " + a.desiredVersion
+	cmd := exec.Command("sh", "-c", command)
+	cmd.Start()
+	cmd.Wait()
 }
 
 func (a *App) getGolangCILintPath() string {
