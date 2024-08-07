@@ -6,25 +6,22 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/anttiharju/vmatch-golangci-lint/src/config"
 	"github.com/anttiharju/vmatch-golangci-lint/src/finder"
 )
 
 type App struct {
-	config         *config.Config
 	desiredVersion string
 	installPath    string
 }
 
-func NewApp(config *config.Config) *App {
-	desiredVersion := finder.GetVersion(config.VersionFileName)
+func NewApp(versionFileName string) *App {
+	desiredVersion := finder.GetVersion(versionFileName)
 	ps := string(os.PathSeparator)
 	v := string(desiredVersion[0])
 	numbers := desiredVersion[1:]
 	installPath := finder.GetBinDir() + ps + v + ps + numbers
 
 	return &App{
-		config:         config,
 		desiredVersion: desiredVersion,
 		installPath:    installPath,
 	}

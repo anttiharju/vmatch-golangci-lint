@@ -6,7 +6,6 @@ import (
 	"os/signal"
 
 	"github.com/anttiharju/vmatch-golangci-lint/src/app"
-	"github.com/anttiharju/vmatch-golangci-lint/src/config"
 	"github.com/anttiharju/vmatch-golangci-lint/src/exit"
 	"github.com/anttiharju/vmatch-golangci-lint/src/exit/exitcode"
 )
@@ -16,8 +15,7 @@ func main() {
 
 	go listenInterrupts()
 
-	config := config.NewConfig()
-	app := app.NewApp(config)
+	app := app.NewApp(".golangci-version")
 	exitCode := app.Run(ctx)
 	exit.Now(exitCode)
 }
