@@ -28,7 +28,7 @@ func NewApp(versionFileName string) *App {
 }
 
 func (a *App) Run(ctx context.Context) int {
-	if a.needToDownload() {
+	if a.noBinary() {
 		a.install(ctx)
 	}
 
@@ -41,7 +41,7 @@ func (a *App) Run(ctx context.Context) int {
 	return linter.ProcessState.ExitCode()
 }
 
-func (a *App) needToDownload() bool {
+func (a *App) noBinary() bool {
 	_, err := os.Stat(a.getGolangCILintPath())
 
 	return os.IsNotExist(err)
