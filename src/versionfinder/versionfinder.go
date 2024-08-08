@@ -1,4 +1,4 @@
-package finder
+package versionfinder
 
 import (
 	"os"
@@ -10,36 +10,7 @@ import (
 	"github.com/anttiharju/vmatch-golangci-lint/src/exit/exitcode"
 )
 
-// TODO: split me again
-
-func GetBinDir() string {
-	binPath := getBin()
-	binDir := binPath[:strings.LastIndex(binPath, string(os.PathSeparator))]
-
-	return binDir
-}
-
-func getBin() string {
-	binPath, err := os.Executable()
-	if err != nil {
-		exit.WithMessage(exitcode.BinPathIssue, "Cannot get executable path")
-	}
-
-	return binPath
-}
-
-func GetWorkDir() string {
-	workdir, err := os.Getwd()
-	if err != nil {
-		exit.WithMessage(exitcode.WorkDirIssue, "Cannot get working directory")
-	}
-
-	return workdir
-}
-
-func GetVersion(filename string) string {
-	workDir := GetWorkDir()
-
+func GetVersion(workDir, filename string) string {
 	for {
 		filePath := filepath.Join(workDir, filename)
 		if _, err := os.Stat(filePath); err == nil {
