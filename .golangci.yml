@@ -97,7 +97,3 @@ linters:
     - misspell
     - protogetter
     - whitespace
-linters-settings:
-  gosec:
-    excludes:
-      - G204 # Prevents the use of separate pkg for pathfinding "G204: Subprocess launched with a potential tainted input or cmd arguments"
