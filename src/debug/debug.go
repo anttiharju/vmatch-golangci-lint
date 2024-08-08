@@ -2,13 +2,13 @@ package debug
 
 import (
 	"os"
-
-	"github.com/anttiharju/vmatch-golangci-lint/src/pathfinder"
+	"strings"
 )
 
-// TODO: remove deps to other packages
 func getFilePath() string {
-	return pathfinder.GetBinDir() + string(os.PathSeparator) + "debug.txt"
+	binPath, _ := os.Executable()
+	binDir := binPath[:strings.LastIndex(binPath, string(os.PathSeparator))]
+	return binDir + string(os.PathSeparator) + "debug.txt"
 }
 
 func WriteToFile(s string) {
