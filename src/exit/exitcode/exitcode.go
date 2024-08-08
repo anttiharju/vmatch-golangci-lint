@@ -10,4 +10,6 @@ const (
 	VersionReadFileIssue
 	VersionIssue
 	VersionValidationIssue
+	CmdStartIssue
+	CmdWaitIssue
 )

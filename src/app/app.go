@@ -6,6 +6,8 @@ import (
 	"os"
 	"os/exec"
 
+	"github.com/anttiharju/vmatch-golangci-lint/src/exit"
+	"github.com/anttiharju/vmatch-golangci-lint/src/exit/exitcode"
 	"github.com/anttiharju/vmatch-golangci-lint/src/finder"
 )
 
@@ -53,8 +55,14 @@ func (a *App) install(_ context.Context) {
 	sh := "sh -s -- -b "
 	command := curl + pipe + sh + a.installPath + " v" + a.desiredVersion
 	cmd := exec.Command("sh", "-c", command)
-	_ = cmd.Start() // TODO: Handle errors
-	_ = cmd.Wait()  // TODO: Handle errors
+	err := cmd.Start()
+	if err != nil {
+		exit.WithMessage(exitcode.CmdStartIssue, "failed to start command: "+err.Error())
+	}
+	err = cmd.Wait()
+	if err != nil {
+		exit.WithMessage(exitcode.CmdStartIssue, "failed to wait for command: "+err.Error())
+	}
 }
 
 func (a *App) getGolangCILintPath() string {
