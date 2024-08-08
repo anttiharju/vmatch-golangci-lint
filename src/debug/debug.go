@@ -8,6 +8,7 @@ import (
 func getFilePath() string {
 	binPath, _ := os.Executable()
 	binDir := binPath[:strings.LastIndex(binPath, string(os.PathSeparator))]
+
 	return binDir + string(os.PathSeparator) + "debug.txt"
 }
 

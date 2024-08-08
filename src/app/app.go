@@ -56,10 +56,12 @@ func (a *App) install(_ context.Context) {
 	sh := "sh -s -- -b "
 	command := curl + pipe + sh + a.installPath + " v" + a.desiredVersion
 	cmd := exec.Command("sh", "-c", command)
+
 	err := cmd.Start()
 	if err != nil {
 		exit.WithMessage(exitcode.CmdStartIssue, "failed to start command: "+err.Error())
 	}
+
 	err = cmd.Wait()
 	if err != nil {
 		exit.WithMessage(exitcode.CmdStartIssue, "failed to wait for command: "+err.Error())
