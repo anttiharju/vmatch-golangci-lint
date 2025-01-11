@@ -14,5 +14,5 @@ runs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: macos-15
+        name: vmatch-golangci-lint-${{ runner.os }}-${{ runner.arch }}
         path: bin/vmatch-golangci-lint
