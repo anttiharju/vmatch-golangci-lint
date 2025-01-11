@@ -10,6 +10,8 @@ import (
 	"github.com/anttiharju/vmatch-golangci-lint/pkg/exit/exitcode"
 )
 
+// Code could be better here, for the moment it's ok.
+
 func GetVersion(workDir, filename string) string {
 	for {
 		filePath := filepath.Join(workDir, filename)
