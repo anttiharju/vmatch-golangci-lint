@@ -10,6 +10,7 @@ jobs:
 
   release:
     name: Release
+    needs: test
     runs-on: macos-15
     steps:
       - name: Checkout
