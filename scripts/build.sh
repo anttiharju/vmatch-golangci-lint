@@ -4,7 +4,7 @@ set -eu
 ROOT=$(pwd)
 mkdir -p "$ROOT/bin"
 go build \
-	-C cmd/golangci-lint \
+	-C cmd/vmatch-golangci-lint \
 	-ldflags \
 	"-s
 	-w
