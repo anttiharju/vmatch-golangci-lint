@@ -6,26 +6,35 @@ jobs:
   golangci-lint:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
-      - run: .github/scripts/golangci-lint-version.sh
-      - uses: golangci/golangci-lint-action@v6
+      - name: Get golangci-lint version
+        run: .github/scripts/golangci-lint-version.sh
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v6
         with:
           version: ${{ env.GOLANGCI_LINT_VERSION }}
 
   shellcheck:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - run: scripts/shellcheck.sh
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run shellcheck
+        run: scripts/shellcheck.sh
 
   test:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
-      - run: make test
+      - name: Test if there's a diff between wrapped and unwrapped linter
+        run: make test
