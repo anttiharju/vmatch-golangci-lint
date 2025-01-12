@@ -12,4 +12,4 @@ fi
 
 # build id can be extracted from a binary with
 # go tool buildid $APP_NAME
-go build -C cmd/$APP_NAME -ldflags "-s -w -buildid=$BUILD_PREFIX-$BUILDID -X github.com/anttiharju/vmatch/pkg/exit.appName=$APP_NAME" -o "$(pwd)/$APP_NAME"
+go build -C cmd/"$APP_NAME" -ldflags "-s -w -buildid=$BUILD_PREFIX-$BUILDID -X github.com/anttiharju/vmatch/pkg/exit.appName=$APP_NAME" -o "$(pwd)/$APP_NAME"
