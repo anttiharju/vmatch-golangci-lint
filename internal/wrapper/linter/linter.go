@@ -17,8 +17,6 @@ type WrappedLinter struct {
 	installPath    string
 }
 
-var _ wrapper.Interface = (*WrappedLinter)(nil)
-
 func NewWrapper() *WrappedLinter {
 	workDir, err := os.Getwd()
 	if err != nil {
@@ -104,3 +102,5 @@ func (w *WrappedLinter) ExitWithPrintln(exitCode int, message string) {
 	fmt.Println("\n" + "wrapperName" + ": " + message)
 	os.Exit(exitCode)
 }
+
+var _ wrapper.Interface = (*WrappedLinter)(nil)
