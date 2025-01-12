@@ -12,7 +12,7 @@ import (
 )
 
 type WrappedLinter struct {
-	name           string
+	wrapper.BaseWrapper
 	desiredVersion string
 	installPath    string
 }
@@ -49,7 +49,7 @@ func NewWrapper(name string) *WrappedLinter {
 	}
 
 	return &WrappedLinter{
-		name:           name,
+		BaseWrapper:    wrapper.BaseWrapper{Name: name},
 		desiredVersion: desiredVersion,
 		installPath:    installPath,
 	}
@@ -98,22 +98,6 @@ func (w *WrappedLinter) install(_ context.Context) {
 
 func (w *WrappedLinter) getGolangCILintPath() string {
 	return w.installPath + string(os.PathSeparator) + "golangci-lint"
-}
-
-// os.Exit() does not respect defer so it's neat to wrap its usage in methods.
-
-func (w *WrappedLinter) Exit(exitCode int) {
-	os.Exit(exitCode)
-}
-
-func (w *WrappedLinter) ExitWithPrint(exitCode int, message string) {
-	fmt.Print(w.name + ": " + message)
-	os.Exit(exitCode)
-}
-
-func (w *WrappedLinter) ExitWithPrintln(exitCode int, message string) {
-	fmt.Println("\n" + w.name + ": " + message)
-	os.Exit(exitCode)
 }
 
 var _ wrapper.Interface = (*WrappedLinter)(nil)
