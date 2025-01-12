@@ -5,38 +5,3 @@ jobs:
   validate:
     name: Validate
     uses: ./.github/workflows/validate.yml
-
-  test:
-    name: Test
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version-file: "go.mod"
-          cache: false # To suppress warning about 'missing' go sum
-      - name: Extract details
-        id: extract-details
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          echo "homepage=$(gh api repos/${{ github.repository }} --jq .homepage)" >> "$GITHUB_OUTPUT"
-          echo "url=$(gh api repos/${{ github.repository }}/releases/latest --jq .tarball_url)" >> "$GITHUB_OUTPUT"
-          echo "go_version=$(go list -m -f '{{.GoVersion}}')" >> "$GITHUB_OUTPUT"
-    outputs:
-      homepage: ${{ steps.extract-details.outputs.homepage }}
-      url: ${{ steps.extract-details.outputs.url }}
-      go_version: ${{ steps.extract-details.outputs.go_version }}
-
-  test2:
-    needs: test
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Extract details
-        id: extract-details
-        run: |
-          echo ${{ needs.test.outputs.homepage }}
-          echo ${{ needs.test.outputs.url }}
-          echo ${{ needs.test.outputs.go_version }}
