@@ -4,7 +4,7 @@ See [docs](./docs/README.md) for usage.
 
 ## Todo
 
-- Improve [brew formula](https://github.com/anttiharju/homebrew-packages)
+- Improve [brew formula](https://github.com/anttiharju/homebrew-tap)
 - Automate brew formula updates
 - Wrapper-specific cli (with --, and use an actual library)
 - Also manage Go versions, resources:
