@@ -15,4 +15,4 @@ type Interface interface {
 	wrapperInterface
 }
 
-type NewWrapper func() Interface
+type NewWrapper func(name string) Interface

@@ -13,7 +13,7 @@ import (
 func main() {
 	ctx := context.Background()
 
-	wrappedLinter := linter.NewWrapper()
+	wrappedLinter := linter.NewWrapper("vmatch-golangci-lint")
 	go listenInterrupts(wrappedLinter)
 	exitCode := wrappedLinter.Run(ctx)
 	wrappedLinter.Exit(exitCode)

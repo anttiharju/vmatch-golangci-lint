@@ -12,6 +12,7 @@ import (
 )
 
 type WrappedLinter struct {
+	name           string
 	desiredVersion string
 	installPath    string
 }
@@ -28,7 +29,7 @@ func getInstallPath(version string) (string, error) {
 	return installPath, nil
 }
 
-func NewWrapper() *WrappedLinter {
+func NewWrapper(name string) *WrappedLinter {
 	workDir, err := os.Getwd()
 	if err != nil {
 		fmt.Println("wrapperName" + ": " + err.Error())
@@ -48,6 +49,7 @@ func NewWrapper() *WrappedLinter {
 	}
 
 	return &WrappedLinter{
+		name:           name,
 		desiredVersion: desiredVersion,
 		installPath:    installPath,
 	}
@@ -105,12 +107,12 @@ func (w *WrappedLinter) Exit(exitCode int) {
 }
 
 func (w *WrappedLinter) ExitWithPrint(exitCode int, message string) {
-	fmt.Print("wrapperName" + ": " + message)
+	fmt.Print(w.name + ": " + message)
 	os.Exit(exitCode)
 }
 
 func (w *WrappedLinter) ExitWithPrintln(exitCode int, message string) {
-	fmt.Println("\n" + "wrapperName" + ": " + message)
+	fmt.Println("\n" + w.name + ": " + message)
 	os.Exit(exitCode)
 }
 
