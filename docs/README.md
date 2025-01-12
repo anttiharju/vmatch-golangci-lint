@@ -1,4 +1,4 @@
-# vmatch
+# vMatch
 
 ## What is this?
 
