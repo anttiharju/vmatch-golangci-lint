@@ -8,7 +8,12 @@ import (
 	"strings"
 )
 
-func GetVersion(workDir, filename string) (string, error) {
+func GetVersion(filename string) (string, error) {
+	workDir, err := os.Getwd()
+	if err != nil {
+		return "", fmt.Errorf("cannot get current working directory: %w", err)
+	}
+
 	for {
 		filePath := filepath.Join(workDir, filename)
 		if _, err := os.Stat(filePath); err == nil {
