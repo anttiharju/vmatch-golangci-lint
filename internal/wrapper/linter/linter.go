@@ -30,26 +30,25 @@ func getInstallPath(version string) (string, error) {
 }
 
 func NewWrapper(name string) *WrappedLinter {
+	baseWrapper := wrapper.BaseWrapper{Name: name}
+
 	workDir, err := os.Getwd()
 	if err != nil {
-		fmt.Println("wrapperName" + ": " + err.Error())
-		os.Exit(exitcode.WorkDirIssue)
+		baseWrapper.ExitWithPrintln(exitcode.WorkDirIssue, err.Error())
 	}
 
 	desiredVersion, err := versionfinder.GetVersion(workDir, ".golangci-version")
 	if err != nil {
-		fmt.Println("wrapperName" + ": " + err.Error())
-		os.Exit(exitcode.VersionIssue)
+		baseWrapper.ExitWithPrintln(exitcode.VersionReadFileIssue, err.Error())
 	}
 
 	installPath, err := getInstallPath(desiredVersion)
 	if err != nil {
-		fmt.Println("wrapperName" + ": " + err.Error())
-		os.Exit(exitcode.InstallPathIssue)
+		baseWrapper.ExitWithPrintln(exitcode.InstallPathIssue, err.Error())
 	}
 
 	return &WrappedLinter{
-		BaseWrapper:    wrapper.BaseWrapper{Name: name},
+		BaseWrapper:    baseWrapper,
 		desiredVersion: desiredVersion,
 		installPath:    installPath,
 	}
