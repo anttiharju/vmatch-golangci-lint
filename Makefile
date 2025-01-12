@@ -4,7 +4,7 @@ SHELL := sh
 MAKEFLAGS += --warn-undefined-variables
 
 GOLANGCI-LINT_VERSION=$(shell cat .golangci-version)
-GOLANGCI-LINT_INSTALL_DIR=$(shell pwd)/bin/v/$(GOLANGCI-LINT_VERSION)
+GOLANGCI-LINT_INSTALL_DIR=~/.vmatch/golangci-lint/v$(GOLANGCI-LINT_VERSION)
 
 APP_NAME=vmatch-golangci-lint
 
