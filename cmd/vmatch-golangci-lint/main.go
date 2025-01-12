@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/anttiharju/vmatch/internal/app"
+	"github.com/anttiharju/vmatch/internal/lintapp"
 	"github.com/anttiharju/vmatch/pkg/exit"
 	"github.com/anttiharju/vmatch/pkg/exit/exitcode"
 )
@@ -15,8 +15,8 @@ func main() {
 
 	go listenInterrupts()
 
-	app := app.NewApp(".golangci-version")
-	exitCode := app.Run(ctx)
+	lintapp := lintapp.NewApp(".golangci-version")
+	exitCode := lintapp.Run(ctx)
 	exit.Now(exitCode)
 }
 
