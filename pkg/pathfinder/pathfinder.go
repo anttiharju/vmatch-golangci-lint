@@ -8,6 +8,15 @@ import (
 	"github.com/anttiharju/vmatch/pkg/exit/exitcode"
 )
 
+func GetHomeDir() string {
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		exit.WithMessage(exitcode.UserHomeDirIssue, "Cannot get user home directory")
+	}
+
+	return homeDir
+}
+
 func GetBinDir() string {
 	binPath := getBin()
 	binDir := binPath[:strings.LastIndex(binPath, string(os.PathSeparator))]

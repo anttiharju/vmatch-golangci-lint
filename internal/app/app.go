@@ -20,7 +20,8 @@ type App struct {
 func NewApp(versionFileName string) *App {
 	desiredVersion := versionfinder.GetVersion(pathfinder.GetWorkDir(), versionFileName)
 	ps := string(os.PathSeparator)
-	installPath := pathfinder.GetBinDir() + ps + ".vmatch" + ps + "golangci-lint" + ps + "v" + desiredVersion
+	homeDir := pathfinder.GetHomeDir()
+	installPath := homeDir + ps + ".vmatch" + ps + "golangci-lint" + ps + "v" + desiredVersion
 
 	return &App{
 		desiredVersion: desiredVersion,
