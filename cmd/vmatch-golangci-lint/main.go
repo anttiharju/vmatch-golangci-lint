@@ -5,24 +5,23 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/anttiharju/vmatch/internal/exitcode"
+	"github.com/anttiharju/vmatch/internal/wrapper"
 	"github.com/anttiharju/vmatch/internal/wrapper/linter"
-	"github.com/anttiharju/vmatch/pkg/exit"
-	"github.com/anttiharju/vmatch/pkg/exit/exitcode"
 )
 
 func main() {
 	ctx := context.Background()
 
-	go listenInterrupts()
-
 	wrappedLinter := linter.NewWrapper()
+	go listenInterrupts(wrappedLinter)
 	exitCode := wrappedLinter.Run(ctx)
-	exit.Now(exitCode)
+	wrappedLinter.Exit(exitCode)
 }
 
-func listenInterrupts() {
+func listenInterrupts(w wrapper.Interface) {
 	interruptCh := make(chan os.Signal, 1)
 	signal.Notify(interruptCh, os.Interrupt)
 	<-interruptCh
-	exit.WithNewlineMessage(exitcode.Interrupt, "Interrupted")
+	w.ExitWithPrintln(exitcode.Interrupt, "Interrupted")
 }

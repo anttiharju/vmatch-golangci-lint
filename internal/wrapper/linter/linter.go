@@ -6,11 +6,10 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/anttiharju/vmatch/pkg/exit"
-	"github.com/anttiharju/vmatch/pkg/exit/exitcode"
+	"github.com/anttiharju/vmatch/internal/exitcode"
+	"github.com/anttiharju/vmatch/internal/wrapper"
 	"github.com/anttiharju/vmatch/pkg/pathfinder"
 	"github.com/anttiharju/vmatch/pkg/versionfinder"
-	"github.com/anttiharju/vmatch/pkg/wrapper"
 )
 
 type WrappedLinter struct {
@@ -21,8 +20,23 @@ type WrappedLinter struct {
 var _ wrapper.Interface = (*WrappedLinter)(nil)
 
 func NewWrapper() *WrappedLinter {
-	desiredVersion := versionfinder.GetVersion(pathfinder.GetWorkDir(), ".golangci-version")
-	installPath := pathfinder.GetInstallPath(desiredVersion)
+	workDir, err := os.Getwd()
+	if err != nil {
+		fmt.Println("wrapperName" + ": " + err.Error())
+		os.Exit(exitcode.WorkDirIssue)
+	}
+
+	desiredVersion, err := versionfinder.GetVersion(workDir, ".golangci-version")
+	if err != nil {
+		fmt.Println("wrapperName" + ": " + err.Error())
+		os.Exit(exitcode.VersionIssue)
+	}
+
+	installPath, err := pathfinder.GetUserHomeDirPath(desiredVersion)
+	if err != nil {
+		fmt.Println("wrapperName" + ": " + err.Error())
+		os.Exit(exitcode.InstallPathIssue)
+	}
 
 	return &WrappedLinter{
 		desiredVersion: desiredVersion,
@@ -62,15 +76,31 @@ func (w *WrappedLinter) install(_ context.Context) {
 
 	err := cmd.Start()
 	if err != nil {
-		exit.WithMessage(exitcode.CmdStartIssue, "failed to start command: "+err.Error())
+		w.ExitWithPrint(exitcode.CmdStartIssue, "failed to start command: "+err.Error())
 	}
 
 	err = cmd.Wait()
 	if err != nil {
-		exit.WithMessage(exitcode.CmdStartIssue, "failed to wait for command: "+err.Error())
+		w.ExitWithPrint(exitcode.CmdStartIssue, "failed to wait for command: "+err.Error())
 	}
 }
 
 func (w *WrappedLinter) getGolangCILintPath() string {
 	return w.installPath + string(os.PathSeparator) + "golangci-lint"
+}
+
+// os.Exit() does not respect defer so it's neat to wrap its usage in methods.
+
+func (w *WrappedLinter) Exit(exitCode int) {
+	os.Exit(exitCode)
+}
+
+func (w *WrappedLinter) ExitWithPrint(exitCode int, message string) {
+	fmt.Print("wrapperName" + ": " + message)
+	os.Exit(exitCode)
+}
+
+func (w *WrappedLinter) ExitWithPrintln(exitCode int, message string) {
+	fmt.Println("\n" + "wrapperName" + ": " + message)
+	os.Exit(exitCode)
 }
