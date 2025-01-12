@@ -8,13 +8,24 @@ import (
 
 	"github.com/anttiharju/vmatch/internal/exitcode"
 	"github.com/anttiharju/vmatch/internal/wrapper"
-	"github.com/anttiharju/vmatch/pkg/pathfinder"
 	"github.com/anttiharju/vmatch/pkg/versionfinder"
 )
 
 type WrappedLinter struct {
 	desiredVersion string
 	installPath    string
+}
+
+func getInstallPath(version string) (string, error) {
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return "", fmt.Errorf("failed to get user home directory: %w", err)
+	}
+
+	ps := string(os.PathSeparator)
+	installPath := homeDir + ps + ".vmatch" + ps + "golangci-lint" + ps + "v" + version
+
+	return installPath, nil
 }
 
 func NewWrapper() *WrappedLinter {
@@ -30,7 +41,7 @@ func NewWrapper() *WrappedLinter {
 		os.Exit(exitcode.VersionIssue)
 	}
 
-	installPath, err := pathfinder.GetUserHomeDirPath(desiredVersion)
+	installPath, err := getInstallPath(desiredVersion)
 	if err != nil {
 		fmt.Println("wrapperName" + ": " + err.Error())
 		os.Exit(exitcode.InstallPathIssue)
