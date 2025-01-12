@@ -51,9 +51,3 @@ A `.vscode/settings.json` for integrating vmatch-golangci-lint would have the fo
   }
 }
 ```
-
-## Final words
-
-This project was less about producing perfect Go code but more about getting the necessary infrastructure in place to distribute a nontrivial application via homebrew.
-
-Currently it's mostly for personal use. Others may find it useful too but I haven't put in the effort to start recommending this for others.
