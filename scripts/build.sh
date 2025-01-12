@@ -5,9 +5,9 @@ BUILD_PREFIX="${BUILD_PREFIX:-sh}"
 
 SHA=$(git rev-parse HEAD)
 if [ -n "$(git status --porcelain)" ]; then
-    BUILDID="$SHA-dirty"
+  BUILDID="$SHA-dirty"
 else
-    BUILDID="$SHA"
+  BUILDID="$SHA"
 fi
 
 # build id can be extracted from a binary with
