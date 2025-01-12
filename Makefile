@@ -23,6 +23,6 @@ lint-fix:
 	@$(GOLANGCI-LINT_INSTALL_DIR)/golangci-lint run --fix
 
 build:
-	@APP_NAME=$(APP_NAME) scripts/build.sh
+	@BUILD_PREFIX=make APP_NAME=$(APP_NAME) scripts/build.sh
 
 .PHONY: setup install_hooks install_lint lint lint-fix build
