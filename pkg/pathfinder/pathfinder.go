@@ -8,6 +8,14 @@ import (
 	"github.com/anttiharju/vmatch/pkg/exit/exitcode"
 )
 
+func GetInstallPath(version string) string {
+	homeDir := GetHomeDir()
+	ps := string(os.PathSeparator)
+	installPath := homeDir + ps + ".vmatch" + ps + "golangci-lint" + ps + "v" + version
+
+	return installPath
+}
+
 func GetHomeDir() string {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
