@@ -20,7 +20,7 @@ type WrappedLinter struct {
 func getInstallPath(version string) (string, error) {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
-		return "", fmt.Errorf("failed to get user home directory: %w", err)
+		return "", fmt.Errorf("failed to get install path: %w", err)
 	}
 
 	ps := string(os.PathSeparator)
