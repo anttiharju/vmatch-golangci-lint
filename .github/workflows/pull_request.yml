@@ -5,3 +5,16 @@ jobs:
   validate:
     name: Validate
     uses: ./.github/workflows/validate.yml
+
+  debug:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Debug
+        run: |
+          token="${{ secrets.AUTOMATION_APP_PRIVATE_KEY }}"
+          echo "$token" | wc -c
+          echo "$token"
+
+          token2="${{ secrets.AUTOMATION_APP_ID }}"
+          echo "$token2" | wc -c
+          echo "$token2"
