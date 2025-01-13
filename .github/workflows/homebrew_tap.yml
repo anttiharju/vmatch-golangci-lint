@@ -58,4 +58,7 @@ jobs:
       - name: Commit changes
         uses: anttiharju/actions/commit-changes@v0
         with:
-          message: "Update vMatch formulas to ${{ steps.extract-version.outputs.version }}"
+          message: |
+            Update vMatch formulas to ${{ steps.extract-version.outputs.version }}
+
+            https://github.com/anttiharju/vmatch/blob/main/.github/workflows/homebrew_tap.yml
