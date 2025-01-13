@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: anttiharju/homebrew-tap
-          token: ${{ secrets.token }}
+          token: ${{ steps.generate-token.outputs.token }}
       - name: Render vmatch-golangci-lint formula
         env:
           TEMPLATE: Go
