@@ -5,12 +5,3 @@ jobs:
   validate:
     name: Validate
     uses: ./.github/workflows/validate.yml
-
-  debug:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Debug
-        run: |
-          token="${{ secrets.HOMEBREW_TOKEN }}"
-          echo "$token" | wc -c
-          echo "$token"
