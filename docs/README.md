@@ -29,7 +29,6 @@ I saw mismatching linter versions causing confusion in a team so I thought to au
 
 ## Caveats?
 
-- It could be more secure (pin install script to a sha)
 - It doesn't manage Go for you. As the Go version affects golangci-lint output, the golangci-lint version management isn't as automated as it could be.
   - One option would be to infer sane default from the Go version in `go.mod`
   - Another would be making a supporting wrapper for Go, `vmatch-go`
