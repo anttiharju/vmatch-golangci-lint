@@ -63,5 +63,5 @@ For more documentation on VS Code integration, refer here [here](https://golangc
 
 1. How to distribute software via Homebrew
 2. How to automate the release process with GitHub App tokens
-   - What GitHub Apps can't do and where a service account may be appropriate
+   - Also learned that GitHub Apps can't enable automerge, and this is the place where service accounts would be appropriate.
 3. More about composite actions, as I created a few in my actions monorepo
