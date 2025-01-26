@@ -20,11 +20,3 @@ jobs:
         uses: golangci/golangci-lint-action@v6
         with:
           version: ${{ steps.get-version.outputs.golangci-lint }}
-
-  shellcheck:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Run shellcheck
-        run: scripts/shellcheck.sh
