@@ -7,8 +7,8 @@ import (
 	"os/exec"
 
 	"github.com/anttiharju/vmatch/pkg/exitcode"
-	"github.com/anttiharju/vmatch/pkg/wrapper"
 	"github.com/anttiharju/vmatch/pkg/versionfinder"
+	"github.com/anttiharju/vmatch/pkg/wrapper"
 )
 
 type WrappedLinter struct {

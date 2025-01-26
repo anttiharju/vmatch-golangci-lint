@@ -6,8 +6,8 @@ import (
 	"os/signal"
 
 	"github.com/anttiharju/vmatch/pkg/exitcode"
-	"github.com/anttiharju/vmatch/pkg/wrapper"
 	"github.com/anttiharju/vmatch/pkg/linter"
+	"github.com/anttiharju/vmatch/pkg/wrapper"
 )
 
 func main() {
