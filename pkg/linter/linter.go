@@ -6,8 +6,8 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/anttiharju/vmatch/internal/exitcode"
-	"github.com/anttiharju/vmatch/internal/wrapper"
+	"github.com/anttiharju/vmatch/pkg/exitcode"
+	"github.com/anttiharju/vmatch/pkg/wrapper"
 	"github.com/anttiharju/vmatch/pkg/versionfinder"
 )
 
