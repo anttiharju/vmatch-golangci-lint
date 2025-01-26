@@ -49,6 +49,7 @@ The problem with said approach is, that it introduces additional complexity [man
   - Include an actual test in the brew formula
 - Also manage Go versions
 - For now focus is on Apple Silicon macbooks but cross-platform is more or less required for more serious usage.
+- Providing a Docker image might be worthwhile, similar to https://golangci-lint.run/welcome/install/#docker
 
 ### Lack of tests
 
