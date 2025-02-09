@@ -42,7 +42,7 @@ jobs:
         uses: anttiharju/actions/render-formula@v0
         with:
           template: Go
-          app-name: vmatch
+          app-name: ${{ github.event.repository.name }}
           description: Wrapper that automatically calls the golangci-lint version matching your project
           homepage: ${{ inputs.homepage }}
           url: ${{ inputs.url }}
