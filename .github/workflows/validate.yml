@@ -3,7 +3,7 @@ on:
   workflow_call:
 
 jobs:
-  lint:
+  validate:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
@@ -13,17 +13,9 @@ jobs:
         with:
           go-version-file: "go.mod"
           cache: false # To suppress warning about 'missing' go sum
+
       - name: golangci-lint
         uses: ./.github/actions/lint
 
-  build:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version-file: "go.mod"
-          cache: false # To suppress warning about 'missing' go sum
-      - run: go build
+      - if: always()
+        run: go build
