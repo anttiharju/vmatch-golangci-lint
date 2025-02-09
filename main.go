@@ -26,5 +26,3 @@ func listenInterrupts(w wrapper.Interface) {
 	<-interruptCh
 	w.ExitWithPrintln(exitcode.Interrupt, "Interrupted")
 }
-
-// hello
