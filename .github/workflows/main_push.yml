@@ -31,7 +31,7 @@ jobs:
       go_version: ${{ steps.extract-details.outputs.go_version }}
       version: ${{ steps.extract-details.outputs.version }}
 
-  update-dists:
+  update-distributions:
     name: Update distributions
     needs: release
     uses: ./.github/workflows/update_dists.yml
