@@ -32,4 +32,4 @@ jobs:
           go-version-file: "go.mod"
           cache: false # To suppress warning about 'missing' go sum
       - name: Build binary
-        run: make build
+        run: go build
