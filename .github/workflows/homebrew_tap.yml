@@ -23,7 +23,7 @@ permissions:
 
 jobs:
   update-vmatch-formula:
-    name: Update vmatch-formula
+    name: Update vmatch formula
     runs-on: ubuntu-24.04
     steps:
       - name: Generate commit token
