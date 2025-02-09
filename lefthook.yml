@@ -7,4 +7,5 @@ pre-commit:
   jobs:
     - name: golangci-lint
       glob: "*.go"
-      run: golangci-lint run --fast
+      run: golangci-lint run --fast --fix {staged_files}
+      stage_fixed: true
