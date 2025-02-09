@@ -32,14 +32,17 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           {
+            url=$(gh api repos/${{ github.repository }}/releases/latest --jq .tarball_url)
             echo "homepage=$(gh api repos/${{ github.repository }} --jq .homepage)"
-            echo "url=$(gh api repos/${{ github.repository }}/releases/latest --jq .tarball_url)"
+            echo "url=$url"
             echo "go_version=$(go list -m -f '{{.GoVersion}}')"
+            echo "version=$(basename "$url")" >> "$GITHUB_OUTPUT"
           } >> "$GITHUB_OUTPUT"
     outputs:
       homepage: ${{ steps.extract-details.outputs.homepage }}
       url: ${{ steps.extract-details.outputs.url }}
       go_version: ${{ steps.extract-details.outputs.go_version }}
+      version: ${{ steps.extract-details.outputs.version }}
 
   homebrew-tap:
     name: Homebrew tap
@@ -49,4 +52,5 @@ jobs:
       homepage: ${{ needs.release.outputs.homepage }}
       url: ${{ needs.release.outputs.url }}
       go-version: ${{ needs.release.outputs.go_version }}
+      version: ${{ needs.release.outputs.version }}
     secrets: inherit

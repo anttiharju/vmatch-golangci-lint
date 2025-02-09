@@ -12,6 +12,9 @@ on:
       go-version:
         required: true
         type: string
+      version:
+        required: true
+        type: string
     secrets:
       AUTOMATION_APP_ID:
         required: true
@@ -47,15 +50,10 @@ jobs:
           homepage: ${{ inputs.homepage }}
           url: ${{ inputs.url }}
           go-version: ${{ inputs.go-version }}
-      - name: Extract version from url
-        id: extract-version
-        env:
-          url: ${{ inputs.url }}
-        run: echo "version=$(basename "$url")" >> "$GITHUB_OUTPUT"
       - name: Commit changes
         uses: anttiharju/actions/commit-changes@v0
         with:
           message: |
-            Update vmatch formula to ${{ steps.extract-version.outputs.version }}
+            Update vmatch formula to ${{ inputs.version }}
 
             https://github.com/anttiharju/vmatch/blob/${{ github.sha }}/.github/workflows/homebrew_tap.yml
