@@ -1,4 +1,4 @@
-name: Update distributions
+name: Distribute
 
 on:
   workflow_call:

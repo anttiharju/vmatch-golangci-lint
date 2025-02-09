@@ -31,10 +31,10 @@ jobs:
       go_version: ${{ steps.extract-details.outputs.go_version }}
       version: ${{ steps.extract-details.outputs.version }}
 
-  update-distributions:
-    name: Update distributions
+  distribute:
+    name: Distribute
     needs: release
-    uses: ./.github/workflows/update_dists.yml
+    uses: ./.github/workflows/distribute.yml
     with:
       homepage: ${{ needs.release.outputs.homepage }}
       url: ${{ needs.release.outputs.url }}
