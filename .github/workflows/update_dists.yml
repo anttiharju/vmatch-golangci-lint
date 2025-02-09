@@ -1,4 +1,4 @@
-name: Homebrew tap
+name: Update distributions
 
 on:
   workflow_call:
@@ -25,8 +25,8 @@ permissions:
   contents: write
 
 jobs:
-  update-vmatch-formula:
-    name: Update vmatch formula
+  homebrew-tap:
+    name: Homebrew tap
     runs-on: ubuntu-24.04
     steps:
       - name: Generate commit token

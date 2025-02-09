@@ -31,10 +31,10 @@ jobs:
       go_version: ${{ steps.extract-details.outputs.go_version }}
       version: ${{ steps.extract-details.outputs.version }}
 
-  homebrew-tap:
-    name: Homebrew tap
+  update-dists:
+    name: Update distributions
     needs: release
-    uses: ./.github/workflows/homebrew_tap.yml
+    uses: ./.github/workflows/update_dists.yml
     with:
       homepage: ${{ needs.release.outputs.homepage }}
       url: ${{ needs.release.outputs.url }}
