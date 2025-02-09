@@ -1,7 +1,6 @@
 output:
-  - summary
-  - success        # Print successful steps
-  - failure        # Print failed steps printing
+  - success
+  - failure
 
 pre-push:
   jobs:
