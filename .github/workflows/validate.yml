@@ -3,7 +3,7 @@ on:
   workflow_call:
 
 jobs:
-  golangci-lint:
+  lint:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
@@ -13,13 +13,8 @@ jobs:
         with:
           go-version-file: "go.mod"
           cache: false # To suppress warning about 'missing' go sum
-      - name: Get golangci-lint version
-        id: get-version
-        run: echo "golangci-lint=v$(cat .golangci-version)" >> "$GITHUB_OUTPUT"
-      - name: Run golangci-lint
-        uses: golangci/golangci-lint-action@v6
-        with:
-          version: ${{ steps.get-version.outputs.golangci-lint }}
+      - name: golangci-lint
+        uses: ./.github/actions/lint
 
   build:
     runs-on: ubuntu-24.04
@@ -31,5 +26,4 @@ jobs:
         with:
           go-version-file: "go.mod"
           cache: false # To suppress warning about 'missing' go sum
-      - name: Build binary
-        run: go build
+      - run: go build
