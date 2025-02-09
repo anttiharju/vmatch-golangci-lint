@@ -1,0 +1,10 @@
+pre-push:
+  jobs:
+    - name: build
+      run: make build
+
+pre-commit:
+  jobs:
+    - name: golangci-lint
+      glob: "*.go"
+      run: golangci-lint run
