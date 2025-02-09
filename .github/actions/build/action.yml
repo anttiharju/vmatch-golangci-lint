@@ -9,4 +9,5 @@ runs:
       with:
         go-version-file: "go.mod"
         cache: false # To suppress warning about 'missing' go sum
-    - run: go build
+    - shell: sh
+      run: go build
