@@ -10,6 +10,7 @@ import (
 	"github.com/anttiharju/vmatch/pkg/wrapper"
 )
 
+// testing lefthook autofix
 func main() {
 	ctx := context.Background()
 
