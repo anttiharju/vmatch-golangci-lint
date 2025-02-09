@@ -1,3 +1,7 @@
+output:
+  - success        # Print successful steps
+  - failure        # Print failed steps printing
+
 pre-push:
   jobs:
     - run: go build
