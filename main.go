@@ -9,7 +9,7 @@ import (
 
 func main() {
 	wrappedLinter := linter.NewWrapper("vmatch-golangci-lint")
-	wrappedLinter.ExitUpon(os.Interrupt)
+	go wrappedLinter.ExitUpon(os.Interrupt)
 	exitCode := wrappedLinter.Run(context.Background())
 	wrappedLinter.Exit(exitCode)
 }
