@@ -37,10 +37,10 @@ func GetVersion(filename string) (string, error) {
 		return "", fmt.Errorf("cannot find version file '%s': %w", filename, err)
 	}
 
-	return ReadLinterVersion(filePath)
+	return readLinterVersion(filePath)
 }
 
-func ReadLinterVersion(filePath string) (string, error) {
+func readLinterVersion(filePath string) (string, error) {
 	content, err := os.ReadFile(filePath)
 	if err != nil {
 		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
