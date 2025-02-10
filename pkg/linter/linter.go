@@ -33,7 +33,7 @@ func getInstallPath(version string) (string, error) {
 func NewWrapper(name string) *WrappedLinter {
 	baseWrapper := wrapper.BaseWrapper{Name: name}
 
-	desiredVersion, err := finder.GetLinterVersion(".golangci-version")
+	desiredVersion, err := finder.GetLinterVersion()
 	if err != nil {
 		baseWrapper.ExitWithPrintln(exitcode.VersionReadFileIssue, err.Error())
 	}

@@ -48,7 +48,9 @@ func GetLangVersion() (string, error) {
 	return version, nil
 }
 
-func GetLinterVersion(filename string) (string, error) {
+func GetLinterVersion() (string, error) {
+	const filename = ".golangci-version"
+
 	filePath, err := locateFile(filename)
 	if err != nil {
 		return "", fmt.Errorf("cannot find linter version file '%s': %w", filename, err)
