@@ -3,41 +3,19 @@ package versionfinder
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"regexp"
 	"strings"
+
+	"github.com/anttiharju/vmatch/pkg/filefinder"
 )
 
 func GetVersion(filename string) (string, error) {
-	filePath, err := findFile(filename)
+	filePath, err := filefinder.Locate(filename)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("cannot find version file '%s': %w", filename, err)
 	}
 
 	return readVersion(filePath)
-}
-
-func findFile(filename string) (string, error) {
-	workDir, err := os.Getwd()
-	if err != nil {
-		return "", fmt.Errorf("cannot get current working directory: %w", err)
-	}
-
-	for {
-		filePath := filepath.Join(workDir, filename)
-		if _, err := os.Stat(filePath); err == nil {
-			return filePath, nil
-		}
-
-		parentDir := filepath.Dir(workDir)
-		if parentDir == workDir {
-			break
-		}
-
-		workDir = parentDir
-	}
-
-	return "", fmt.Errorf("cannot find version file '%s'", filename)
 }
 
 func readVersion(filePath string) (string, error) {
