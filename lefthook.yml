@@ -2,13 +2,9 @@ output:
   - success
   - failure
 
-pre-push:
-  jobs:
-    - name: build
-      run: go build
-
 pre-commit:
   jobs:
+    - run: go build
     - name: golangci-lint --fix
       glob: "*.go"
       run: golangci-lint run --fix
