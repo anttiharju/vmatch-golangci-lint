@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"slices"
 
 	"github.com/anttiharju/vmatch/pkg/exitcode"
 	"github.com/anttiharju/vmatch/pkg/versionfinder"
@@ -55,6 +56,10 @@ func (w *WrappedLinter) Run(ctx context.Context) int {
 	}
 
 	args := os.Args[1:]
+	if !slices.Contains(args, "--color") {
+		args = append(args, "--color", "always")
+	}
+
 	//nolint:gosec // I don't think a wrapper can avoid G204.
 	linter := exec.Command(w.getGolangCILintPath(), args...)
 	linterOutput, _ := linter.Output()

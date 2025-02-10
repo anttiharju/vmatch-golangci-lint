@@ -45,7 +45,6 @@ The problem with said approach is, that it introduces additional complexity [man
 
 ## Todo
 
-- Colorise output to match default behaviour (inject --color always if not set? spooky)
 - Wrapper-specific cli (with --, and use an actual library)
   - Include an actual test in the brew formula
 - Also manage Go versions
