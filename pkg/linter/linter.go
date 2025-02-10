@@ -8,7 +8,7 @@ import (
 	"slices"
 
 	"github.com/anttiharju/vmatch/pkg/exitcode"
-	"github.com/anttiharju/vmatch/pkg/version"
+	"github.com/anttiharju/vmatch/pkg/finder"
 	"github.com/anttiharju/vmatch/pkg/wrapper"
 )
 
@@ -33,7 +33,7 @@ func getInstallPath(version string) (string, error) {
 func NewWrapper(name string) *WrappedLinter {
 	baseWrapper := wrapper.BaseWrapper{Name: name}
 
-	desiredVersion, err := version.GetVersion(".golangci-version")
+	desiredVersion, err := finder.GetVersion(".golangci-version")
 	if err != nil {
 		baseWrapper.ExitWithPrintln(exitcode.VersionReadFileIssue, err.Error())
 	}
