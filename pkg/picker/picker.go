@@ -11,8 +11,7 @@ import (
 
 func SelectWrapper(ctx context.Context, args []string) int {
 	if len(args) > 0 && args[0] == "go" {
-		filePath, _ := finder.LocateFile("go.mod")
-		fmt.Println("Found go.mod at", filePath)
+		finder.GetLangVersion()
 
 		version := "1.23.5"
 		fmt.Println("https://go.dev/dl/go" + version + "." + runtime.GOOS + "-" + runtime.GOARCH + ".tar.gz")

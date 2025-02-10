@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func LocateFile(filename string) (string, error) {
+func locateFile(filename string) (string, error) {
 	workDir, err := os.Getwd()
 	if err != nil {
 		return "", fmt.Errorf("cannot get current working directory: %w", err)
@@ -31,8 +31,13 @@ func LocateFile(filename string) (string, error) {
 	return "", fmt.Errorf("cannot find version file '%s'", filename)
 }
 
+func GetLangVersion() {
+	filePath, _ := locateFile("go.mod")
+	fmt.Println("Found go.mod at", filePath)
+}
+
 func GetLinterVersion(filename string) (string, error) {
-	filePath, err := LocateFile(filename)
+	filePath, err := locateFile(filename)
 	if err != nil {
 		return "", fmt.Errorf("cannot find version file '%s': %w", filename, err)
 	}
