@@ -40,12 +40,30 @@ func GetLangVersion() (string, error) {
 		return "", fmt.Errorf("cannot find lang version file '%s': %w", filename, err)
 	}
 
-	fmt.Println("Found go.mod at", filePath)
+	version, _ := readLangVersion(filePath)
 
-	version := "1.23.5"
 	fmt.Println("https://go.dev/dl/go" + version + "." + runtime.GOOS + "-" + runtime.GOARCH + ".tar.gz")
 
 	return version, nil
+}
+
+func readLangVersion(filePath string) (string, error) {
+	content, err := os.ReadFile(filePath)
+	if err != nil {
+		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
+	}
+
+	lines := strings.Split(string(content), "\n")
+	for _, line := range lines {
+		line = strings.TrimSpace(line)
+		if strings.HasPrefix(line, "go ") {
+			rawVersion := strings.TrimPrefix(line, "go ")
+
+			return validateLangVersion(rawVersion)
+		}
+	}
+
+	return "", fmt.Errorf("cannot find go version in file '%s'", filePath)
 }
 
 func GetLinterVersion() (string, error) {
@@ -71,6 +89,14 @@ func readLinterVersion(filePath string) (string, error) {
 }
 
 var versionPattern = regexp.MustCompile(`^\d+\.\d+\.\d+$`)
+
+func validateLangVersion(version string) (string, error) {
+	if !versionPattern.MatchString(version) {
+		return "", fmt.Errorf("invalid version format '%s'", version)
+	}
+
+	return version, nil
+}
 
 func validateLinterVersion(version string) (string, error) {
 	if !versionPattern.MatchString(version) {
