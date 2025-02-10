@@ -9,6 +9,32 @@ import (
 	"strings"
 )
 
+func GetLangVersion() (string, error) {
+	const filename = "go.mod"
+
+	filePath, err := locateFile(filename)
+	if err != nil {
+		return "", fmt.Errorf("cannot find lang version file '%s': %w", filename, err)
+	}
+
+	version, _ := readLangVersion(filePath)
+
+	fmt.Println("https://go.dev/dl/go" + version + "." + runtime.GOOS + "-" + runtime.GOARCH + ".tar.gz")
+
+	return version, nil
+}
+
+func GetLinterVersion() (string, error) {
+	const filename = ".golangci-version"
+
+	filePath, err := locateFile(filename)
+	if err != nil {
+		return "", fmt.Errorf("cannot find linter version file '%s': %w", filename, err)
+	}
+
+	return readLinterVersion(filePath)
+}
+
 func locateFile(filename string) (string, error) {
 	workDir, err := os.Getwd()
 	if err != nil {
@@ -32,21 +58,6 @@ func locateFile(filename string) (string, error) {
 	return "", fmt.Errorf("cannot find version file '%s'", filename)
 }
 
-func GetLangVersion() (string, error) {
-	const filename = "go.mod"
-
-	filePath, err := locateFile(filename)
-	if err != nil {
-		return "", fmt.Errorf("cannot find lang version file '%s': %w", filename, err)
-	}
-
-	version, _ := readLangVersion(filePath)
-
-	fmt.Println("https://go.dev/dl/go" + version + "." + runtime.GOOS + "-" + runtime.GOARCH + ".tar.gz")
-
-	return version, nil
-}
-
 func readLangVersion(filePath string) (string, error) {
 	content, err := os.ReadFile(filePath)
 	if err != nil {
@@ -66,26 +77,15 @@ func readLangVersion(filePath string) (string, error) {
 	return "", fmt.Errorf("cannot find go version in file '%s'", filePath)
 }
 
-func GetLinterVersion() (string, error) {
-	const filename = ".golangci-version"
-
-	filePath, err := locateFile(filename)
-	if err != nil {
-		return "", fmt.Errorf("cannot find linter version file '%s': %w", filename, err)
-	}
-
-	return readLinterVersion(filePath)
-}
-
 func readLinterVersion(filePath string) (string, error) {
 	content, err := os.ReadFile(filePath)
 	if err != nil {
 		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
 	}
 
-	rawContent := strings.TrimSpace(string(content))
+	rawVersion := strings.TrimSpace(string(content))
 
-	return validateVersion(rawContent)
+	return validateVersion(rawVersion)
 }
 
 var versionPattern = regexp.MustCompile(`^\d+\.\d+\.\d+$`)
