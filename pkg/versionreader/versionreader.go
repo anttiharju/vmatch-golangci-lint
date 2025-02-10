@@ -1,4 +1,4 @@
-package versionfinder
+package versionreader
 
 import (
 	"fmt"
