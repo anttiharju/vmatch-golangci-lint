@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/anttiharju/vmatch/pkg/filefinder"
+	"github.com/anttiharju/vmatch/pkg/finder"
 	"github.com/anttiharju/vmatch/pkg/linter"
 )
 
 func SelectWrapper(ctx context.Context, args []string) int {
 	if len(args) > 0 && args[0] == "go" {
-		filePath, _ := filefinder.Locate("go.mod")
+		filePath, _ := finder.LocateFile("go.mod")
 		fmt.Println("Found go.mod at", filePath)
 
 		version := "1.23.5"
