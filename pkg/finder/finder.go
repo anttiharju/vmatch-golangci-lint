@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"strings"
 )
 
@@ -34,6 +35,9 @@ func locateFile(filename string) (string, error) {
 func GetLangVersion() {
 	filePath, _ := locateFile("go.mod")
 	fmt.Println("Found go.mod at", filePath)
+
+	version := "1.23.5"
+	fmt.Println("https://go.dev/dl/go" + version + "." + runtime.GOOS + "-" + runtime.GOARCH + ".tar.gz")
 }
 
 func GetLinterVersion(filename string) (string, error) {
