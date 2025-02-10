@@ -15,10 +15,10 @@ func GetVersion(filename string) (string, error) {
 		return "", fmt.Errorf("cannot find version file '%s': %w", filename, err)
 	}
 
-	return readVersion(filePath)
+	return ReadLinterVersion(filePath)
 }
 
-func readVersion(filePath string) (string, error) {
+func ReadLinterVersion(filePath string) (string, error) {
 	content, err := os.ReadFile(filePath)
 	if err != nil {
 		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
@@ -26,12 +26,12 @@ func readVersion(filePath string) (string, error) {
 
 	rawContent := strings.TrimSpace(string(content))
 
-	return validate(rawContent)
+	return validateLinterVersion(rawContent)
 }
 
 var versionPattern = regexp.MustCompile(`^\d+\.\d+\.\d+$`)
 
-func validate(version string) (string, error) {
+func validateLinterVersion(version string) (string, error) {
 	if !versionPattern.MatchString(version) {
 		return "", fmt.Errorf("invalid version format '%s'", version)
 	}
