@@ -9,8 +9,12 @@ import (
 	"github.com/anttiharju/vmatch/pkg/linter"
 )
 
+func firstArgIsGo(args []string) bool {
+	return len(args) > 0 && args[0] == "go"
+}
+
 func SelectWrapper(ctx context.Context, args []string) int {
-	if len(args) > 0 && args[0] == "go" {
+	if firstArgIsGo(args) {
 		version, _ := finder.GetLangVersion()
 		fmt.Println("https://go.dev/dl/go" + version + "." + runtime.GOOS + "-" + runtime.GOARCH + ".tar.gz")
 
