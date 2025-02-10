@@ -32,18 +32,26 @@ func locateFile(filename string) (string, error) {
 	return "", fmt.Errorf("cannot find version file '%s'", filename)
 }
 
-func GetLangVersion() {
-	filePath, _ := locateFile("go.mod")
+func GetLangVersion() (string, error) {
+	const filename = "go.mod"
+
+	filePath, err := locateFile(filename)
+	if err != nil {
+		return "", fmt.Errorf("cannot find lang version file '%s': %w", filename, err)
+	}
+
 	fmt.Println("Found go.mod at", filePath)
 
 	version := "1.23.5"
 	fmt.Println("https://go.dev/dl/go" + version + "." + runtime.GOOS + "-" + runtime.GOARCH + ".tar.gz")
+
+	return version, nil
 }
 
 func GetLinterVersion(filename string) (string, error) {
 	filePath, err := locateFile(filename)
 	if err != nil {
-		return "", fmt.Errorf("cannot find version file '%s': %w", filename, err)
+		return "", fmt.Errorf("cannot find linter version file '%s': %w", filename, err)
 	}
 
 	return readLinterVersion(filePath)
