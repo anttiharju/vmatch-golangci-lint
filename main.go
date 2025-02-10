@@ -23,7 +23,6 @@ func interruptListener(signals ...os.Signal) {
 	interruptCh := make(chan os.Signal, 1)
 	signal.Notify(interruptCh, signals...)
 	<-interruptCh
-	// leading newline is so that ^C appears on its own line
-	fmt.Println("\nvmatch: interrupted")
+	fmt.Println("\nvmatch: interrupted") // leading \n to have ^C appear on its own line
 	os.Exit(exitcode.Interrupt)
 }
