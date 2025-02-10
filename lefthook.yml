@@ -5,7 +5,6 @@ output:
 pre-commit:
   jobs:
     - run: go build
-    - name: golangci-lint --fix
+    - run: golangci-lint run --fix
       glob: "*.go"
-      run: golangci-lint run --fix
       stage_fixed: true
