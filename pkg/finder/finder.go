@@ -59,7 +59,7 @@ func readLangVersion(filePath string) (string, error) {
 		if strings.HasPrefix(line, "go ") {
 			rawVersion := strings.TrimPrefix(line, "go ")
 
-			return validateLangVersion(rawVersion)
+			return validateVersion(rawVersion)
 		}
 	}
 
@@ -85,20 +85,12 @@ func readLinterVersion(filePath string) (string, error) {
 
 	rawContent := strings.TrimSpace(string(content))
 
-	return validateLinterVersion(rawContent)
+	return validateVersion(rawContent)
 }
 
 var versionPattern = regexp.MustCompile(`^\d+\.\d+\.\d+$`)
 
-func validateLangVersion(version string) (string, error) {
-	if !versionPattern.MatchString(version) {
-		return "", fmt.Errorf("invalid version format '%s'", version)
-	}
-
-	return version, nil
-}
-
-func validateLinterVersion(version string) (string, error) {
+func validateVersion(version string) (string, error) {
 	if !versionPattern.MatchString(version) {
 		return "", fmt.Errorf("invalid version format '%s'", version)
 	}
