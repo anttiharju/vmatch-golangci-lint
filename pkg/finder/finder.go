@@ -31,7 +31,7 @@ func LocateFile(filename string) (string, error) {
 	return "", fmt.Errorf("cannot find version file '%s'", filename)
 }
 
-func GetVersion(filename string) (string, error) {
+func GetLinterVersion(filename string) (string, error) {
 	filePath, err := LocateFile(filename)
 	if err != nil {
 		return "", fmt.Errorf("cannot find version file '%s': %w", filename, err)
