@@ -68,9 +68,9 @@ func readLangVersion(filePath string) (string, error) {
 	for _, line := range lines {
 		line = strings.TrimSpace(line)
 		if strings.HasPrefix(line, "go ") {
-			rawVersion := strings.TrimPrefix(line, "go ")
+			trimmed := strings.TrimPrefix(line, "go ")
 
-			return validateVersion(rawVersion)
+			return validateVersion(trimmed)
 		}
 	}
 
@@ -83,9 +83,9 @@ func readLinterVersion(filePath string) (string, error) {
 		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
 	}
 
-	rawVersion := strings.TrimSpace(string(content))
+	trimmed := strings.TrimSpace(string(content))
 
-	return validateVersion(rawVersion)
+	return validateVersion(trimmed)
 }
 
 var versionPattern = regexp.MustCompile(`^\d+\.\d+\.\d+$`)
