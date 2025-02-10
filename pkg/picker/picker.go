@@ -2,6 +2,8 @@ package picker
 
 import (
 	"context"
+	"fmt"
+	"runtime"
 
 	"github.com/anttiharju/vmatch/pkg/finder"
 	"github.com/anttiharju/vmatch/pkg/linter"
@@ -9,7 +11,8 @@ import (
 
 func SelectWrapper(ctx context.Context, args []string) int {
 	if len(args) > 0 && args[0] == "go" {
-		_, _ = finder.GetLangVersion()
+		version, _ := finder.GetLangVersion()
+		fmt.Println("https://go.dev/dl/go" + version + "." + runtime.GOOS + "-" + runtime.GOARCH + ".tar.gz")
 
 		return 0
 	}
