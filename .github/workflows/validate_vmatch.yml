@@ -12,7 +12,7 @@ jobs:
       - name: golangci-lint
         uses: anttiharju/actions/lint-go@v0
         with:
-          version-file: ".golangci.yml"
+          version-file: ".golangci-version"
 
       - if: always()
         name: go build
