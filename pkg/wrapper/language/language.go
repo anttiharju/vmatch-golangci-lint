@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"runtime"
 	"strings"
 
 	"github.com/anttiharju/vmatch/pkg/exitcode"
@@ -69,13 +70,14 @@ func (w *WrappedLanguage) noBinary() bool {
 }
 
 func (w *WrappedLanguage) install() {
-	//nolint:lll // Official binary install command:
-	// curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.59.1
-	// todo: pin to a sha instead of master, but automate updates
-	curl := "curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh"
+	//nolint:lll // Install command example:
+	// curl -sSfL https://raw.githubusercontent.com/anttiharju/vmatch-go/HEAD/install.sh | sh -s -- 1.23.6 darwin arm64 "$HOME/.vmatch/go/v1.23.6"
+	// todo: pin to a sha instead of HEAD, but automate updates
+	curl := "curl -sSfL https://raw.githubusercontent.com/anttiharju/vmatch-go/HEAD/install.sh"
 	pipe := " | "
-	sh := "sh -s -- -b "
-	command := curl + pipe + sh + w.InstallPath + " v" + w.DesiredVersion
+	sh := "sh -s -- "
+	versionArgs := w.DesiredVersion + " " + runtime.GOOS + " " + runtime.GOARCH + " "
+	command := curl + pipe + sh + versionArgs + w.InstallPath
 	cmd := exec.Command("sh", "-c", command)
 
 	err := cmd.Start()
