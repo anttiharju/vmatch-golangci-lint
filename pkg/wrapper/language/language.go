@@ -54,7 +54,7 @@ func (w *WrappedLanguage) Run(args []string) int {
 	}
 
 	//nolint:gosec // I don't think a wrapper can avoid G204.
-	language := exec.Command(w.getGolangCILintPath(), args...)
+	language := exec.Command(w.getGoPath(), args...)
 	languageOutput, _ := language.Output()
 
 	fmt.Print(string(languageOutput))
@@ -63,7 +63,7 @@ func (w *WrappedLanguage) Run(args []string) int {
 }
 
 func (w *WrappedLanguage) noBinary() bool {
-	_, err := os.Stat(w.getGolangCILintPath())
+	_, err := os.Stat(w.getGoPath())
 
 	return os.IsNotExist(err)
 }
@@ -89,7 +89,7 @@ func (w *WrappedLanguage) install() {
 	}
 }
 
-func (w *WrappedLanguage) getGolangCILintPath() string {
+func (w *WrappedLanguage) getGoPath() string {
 	return w.InstallPath + string(os.PathSeparator) + "golangci-lint"
 }
 
