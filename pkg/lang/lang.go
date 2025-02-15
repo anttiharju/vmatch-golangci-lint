@@ -9,6 +9,7 @@ import (
 
 	"github.com/anttiharju/vmatch/pkg/exitcode"
 	"github.com/anttiharju/vmatch/pkg/finder"
+	"github.com/anttiharju/vmatch/pkg/utils"
 	"github.com/anttiharju/vmatch/pkg/wrapper"
 )
 
@@ -16,18 +17,6 @@ type WrappedLang struct {
 	wrapper.BaseWrapper
 	desiredVersion string
 	installPath    string
-}
-
-func getInstallPath(version string) (string, error) {
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		return "", fmt.Errorf("failed to get install path: %w", err)
-	}
-
-	ps := string(os.PathSeparator)
-	installPath := homeDir + ps + ".vmatch" + ps + "golangci-lint" + ps + "v" + version
-
-	return installPath, nil
 }
 
 func NewWrapper(name string) *WrappedLang {
@@ -38,7 +27,7 @@ func NewWrapper(name string) *WrappedLang {
 		baseWrapper.ExitWithPrintln(exitcode.VersionReadFileIssue, err.Error())
 	}
 
-	installPath, err := getInstallPath(desiredVersion)
+	installPath, err := utils.GenerateInstallPath(name, desiredVersion)
 	if err != nil {
 		baseWrapper.ExitWithPrintln(exitcode.InstallPathIssue, err.Error())
 	}
