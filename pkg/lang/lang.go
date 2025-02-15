@@ -33,9 +33,9 @@ func NewWrapper(name string) *WrappedLang {
 	}
 }
 
-func (w *WrappedLang) Run(ctx context.Context, args []string) int {
+func (w *WrappedLang) Run(_ context.Context, args []string) int {
 	if w.noBinary() {
-		w.install(ctx)
+		w.install()
 	}
 
 	//nolint:gosec // I don't think a wrapper can avoid G204.
@@ -53,7 +53,7 @@ func (w *WrappedLang) noBinary() bool {
 	return os.IsNotExist(err)
 }
 
-func (w *WrappedLang) install(_ context.Context) {
+func (w *WrappedLang) install() {
 	//nolint:lll // Official binary install command:
 	// curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.59.1
 	// todo: pin to a sha instead of master, but automate updates

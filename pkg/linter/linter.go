@@ -34,9 +34,9 @@ func NewWrapper(name string) *WrappedLinter {
 	}
 }
 
-func (w *WrappedLinter) Run(ctx context.Context, args []string) int {
+func (w *WrappedLinter) Run(_ context.Context, args []string) int {
 	if w.noBinary() {
-		w.install(ctx)
+		w.install()
 	}
 
 	if !slices.Contains(args, "--color") {
@@ -58,7 +58,7 @@ func (w *WrappedLinter) noBinary() bool {
 	return os.IsNotExist(err)
 }
 
-func (w *WrappedLinter) install(_ context.Context) {
+func (w *WrappedLinter) install() {
 	//nolint:lll // Official binary install command:
 	// curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.59.1
 	// todo: pin to a sha instead of master, but automate updates
