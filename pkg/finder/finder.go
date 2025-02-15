@@ -8,9 +8,7 @@ import (
 	"strings"
 )
 
-func GetLangVersion() (string, error) {
-	const filename = "go.mod"
-
+func GetLangVersion(filename string) (string, error) {
 	filePath, err := locateFile(filename)
 	if err != nil {
 		return "", fmt.Errorf("cannot find lang version file '%s': %w", filename, err)
@@ -19,9 +17,7 @@ func GetLangVersion() (string, error) {
 	return readLangVersion(filePath)
 }
 
-func GetLinterVersion() (string, error) {
-	const filename = ".golangci-version"
-
+func GetLinterVersion(filename string) (string, error) {
 	filePath, err := locateFile(filename)
 	if err != nil {
 		return "", fmt.Errorf("cannot find linter version file '%s': %w", filename, err)

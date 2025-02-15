@@ -18,7 +18,7 @@ type WrappedLinter struct {
 func NewWrapper(name string) *WrappedLinter {
 	baseWrapper := wrapper.BaseWrapper{Name: name}
 
-	desiredVersion, err := finder.GetLinterVersion()
+	desiredVersion, err := finder.GetLinterVersion(".golangci-version")
 	if err != nil {
 		baseWrapper.ExitWithPrintln(exitcode.VersionReadFileIssue, err.Error())
 	}

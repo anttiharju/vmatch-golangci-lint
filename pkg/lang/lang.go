@@ -17,7 +17,7 @@ type WrappedLang struct {
 func NewWrapper(name string) *WrappedLang {
 	baseWrapper := wrapper.BaseWrapper{Name: name}
 
-	desiredVersion, err := finder.GetLangVersion()
+	desiredVersion, err := finder.GetLangVersion("go.mod")
 	if err != nil {
 		baseWrapper.ExitWithPrintln(exitcode.VersionReadFileIssue, err.Error())
 	}
