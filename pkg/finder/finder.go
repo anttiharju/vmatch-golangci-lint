@@ -5,11 +5,11 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-
-	"github.com/anttiharju/vmatch/pkg/parser"
 )
 
-func GetVersion(filename string, parse parser.Parser) (string, error) {
+type parser func(content []byte) (string, error)
+
+func GetVersion(filename string, parse parser) (string, error) {
 	location, err := locateFile(filename)
 	if err != nil {
 		return "", fmt.Errorf("cannot find version file '%s': %w", filename, err)
