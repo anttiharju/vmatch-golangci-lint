@@ -37,6 +37,7 @@ I saw mismatching linter versions causing confusion in a team so I thought to au
 - Distribute to winget (no idea on details)
 - Simplify these docs, currently this is a collection of somewhat random thoughts.
 - Automation to be able to do security hardening
+- Dark mode for GitHub pages deployment
 
 ### Lack of tests
 
