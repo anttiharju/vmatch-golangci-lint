@@ -16,7 +16,7 @@ type WrappedLanguage struct {
 	wrapper.BaseWrapper
 }
 
-func langParser(content []byte) (string, error) {
+func languageParser(content []byte) (string, error) {
 	lines := strings.Split(string(content), "\n")
 	for _, line := range lines {
 		line = strings.TrimSpace(line)
@@ -33,7 +33,7 @@ func langParser(content []byte) (string, error) {
 func NewWrapper(name string) *WrappedLanguage {
 	baseWrapper := wrapper.BaseWrapper{Name: name}
 
-	desiredVersion, err := finder.GetVersion("go.mod", langParser)
+	desiredVersion, err := finder.GetVersion("go.mod", languageParser)
 	if err != nil {
 		baseWrapper.ExitWithPrintln(exitcode.VersionReadFileIssue, err.Error())
 	}
@@ -54,12 +54,12 @@ func (w *WrappedLanguage) Run(args []string) int {
 	}
 
 	//nolint:gosec // I don't think a wrapper can avoid G204.
-	lang := exec.Command(w.getGolangCILintPath(), args...)
-	langOutput, _ := lang.Output()
+	language := exec.Command(w.getGolangCILintPath(), args...)
+	languageOutput, _ := language.Output()
 
-	fmt.Print(string(langOutput))
+	fmt.Print(string(languageOutput))
 
-	return lang.ProcessState.ExitCode()
+	return language.ProcessState.ExitCode()
 }
 
 func (w *WrappedLanguage) noBinary() bool {
