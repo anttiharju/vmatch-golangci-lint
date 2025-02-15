@@ -1,7 +1,6 @@
 package linter
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"os/exec"
@@ -34,7 +33,7 @@ func NewWrapper(name string) *WrappedLinter {
 	}
 }
 
-func (w *WrappedLinter) Run(_ context.Context, args []string) int {
+func (w *WrappedLinter) Run(args []string) int {
 	if w.noBinary() {
 		w.install()
 	}

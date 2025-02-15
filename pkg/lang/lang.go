@@ -1,7 +1,6 @@
 package lang
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"os/exec"
@@ -33,7 +32,7 @@ func NewWrapper(name string) *WrappedLang {
 	}
 }
 
-func (w *WrappedLang) Run(_ context.Context, args []string) int {
+func (w *WrappedLang) Run(args []string) int {
 	if w.noBinary() {
 		w.install()
 	}
