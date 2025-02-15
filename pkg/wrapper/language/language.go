@@ -30,7 +30,7 @@ func languageParser(content []byte) (string, error) {
 	return "", errors.New("cannot find go version")
 }
 
-func NewWrapper(name string) *WrappedLanguage {
+func Wrap(name string) *WrappedLanguage {
 	baseWrapper := wrapper.BaseWrapper{Name: name}
 
 	desiredVersion, err := finder.GetVersion("go.mod", languageParser)

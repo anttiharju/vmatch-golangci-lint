@@ -22,7 +22,7 @@ func linterParser(content []byte) (string, error) {
 	return trimmed, nil
 }
 
-func NewWrapper(name string) *WrappedLinter {
+func Wrap(name string) *WrappedLinter {
 	baseWrapper := wrapper.BaseWrapper{Name: name}
 
 	desiredVersion, err := finder.GetVersion(".golangci-version", linterParser)

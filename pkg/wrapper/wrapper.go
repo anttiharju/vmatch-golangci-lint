@@ -30,12 +30,12 @@ func (w *BaseWrapper) Exit(exitCode int) {
 }
 
 func (w *BaseWrapper) ExitWithPrint(exitCode int, message string) {
-	fmt.Print(w.Name + ": " + message)
+	fmt.Print("vmatch-" + w.Name + ": " + message)
 	os.Exit(exitCode)
 }
 
 func (w *BaseWrapper) ExitWithPrintln(exitCode int, message string) {
-	fmt.Println("\n" + w.Name + ": " + message)
+	fmt.Println("\n" + "vmatch-" + w.Name + ": " + message)
 	os.Exit(exitCode)
 }
 

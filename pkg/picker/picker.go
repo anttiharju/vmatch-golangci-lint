@@ -11,13 +11,13 @@ func firstArgIsGo(args []string) bool {
 
 func SelectWrapper(args []string) int {
 	if firstArgIsGo(args) {
-		wrappedLanguage := language.NewWrapper("vmatch-go")
+		wrappedLanguage := language.Wrap("go")
 		exitCode := wrappedLanguage.Run(args[1:])
 
 		return exitCode
 	}
 
-	wrappedLinter := linter.NewWrapper("vmatch-golangci-lint")
+	wrappedLinter := linter.Wrap("golangci-lint")
 	exitCode := wrappedLinter.Run(args)
 
 	return exitCode
