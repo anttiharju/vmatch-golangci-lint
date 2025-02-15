@@ -10,19 +10,19 @@ import (
 )
 
 func GetVersion(filename string, parse parser.Parser) (string, error) {
-	filePath, err := locateFile(filename)
+	location, err := locateFile(filename)
 	if err != nil {
 		return "", fmt.Errorf("cannot find version file '%s': %w", filename, err)
 	}
 
-	content, err := os.ReadFile(filePath)
+	content, err := os.ReadFile(location)
 	if err != nil {
-		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
+		return "", fmt.Errorf("cannot read version file '%s': %w", location, err)
 	}
 
 	version, err := parse(content)
 	if err != nil {
-		return "", fmt.Errorf("could not parse %s: %w", filePath, err)
+		return "", fmt.Errorf("could not parse %s: %w", location, err)
 	}
 
 	return validateVersion(version)
