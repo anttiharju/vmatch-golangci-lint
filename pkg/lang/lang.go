@@ -8,7 +8,6 @@ import (
 
 	"github.com/anttiharju/vmatch/pkg/exitcode"
 	"github.com/anttiharju/vmatch/pkg/finder"
-	"github.com/anttiharju/vmatch/pkg/utils"
 	"github.com/anttiharju/vmatch/pkg/wrapper"
 )
 
@@ -26,7 +25,7 @@ func NewWrapper(name string) *WrappedLang {
 		baseWrapper.ExitWithPrintln(exitcode.VersionReadFileIssue, err.Error())
 	}
 
-	installPath, err := utils.GenerateInstallPath(name, desiredVersion)
+	installPath, err := baseWrapper.GenerateInstallPath(desiredVersion)
 	if err != nil {
 		baseWrapper.ExitWithPrintln(exitcode.InstallPathIssue, err.Error())
 	}

@@ -11,6 +11,7 @@ type wrapperInterface interface {
 	Exit(code int)
 	ExitWithPrint(code int, msg string)
 	ExitWithPrintln(code int, msg string)
+	GenerateInstallPath(version string) (string, error)
 }
 
 type Interface interface {
@@ -35,6 +36,18 @@ func (w *BaseWrapper) ExitWithPrint(exitCode int, message string) {
 func (w *BaseWrapper) ExitWithPrintln(exitCode int, message string) {
 	fmt.Println("\n" + w.Name + ": " + message)
 	os.Exit(exitCode)
+}
+
+func (w *BaseWrapper) GenerateInstallPath(version string) (string, error) {
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return "", fmt.Errorf("failed to get install path: %w", err)
+	}
+
+	ps := string(os.PathSeparator)
+	installPath := homeDir + ps + ".vmatch" + ps + w.Name + ps + "v" + version
+
+	return installPath, nil
 }
 
 type NewWrapper func(name string) Interface
