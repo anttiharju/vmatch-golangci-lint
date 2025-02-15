@@ -14,7 +14,6 @@ import (
 type WrappedLang struct {
 	wrapper.BaseWrapper
 	desiredVersion string
-	installPath    string
 }
 
 func NewWrapper(name string) *WrappedLang {
@@ -25,7 +24,7 @@ func NewWrapper(name string) *WrappedLang {
 		baseWrapper.ExitWithPrintln(exitcode.VersionReadFileIssue, err.Error())
 	}
 
-	installPath, err := baseWrapper.GenerateInstallPath(desiredVersion)
+	err = baseWrapper.GenerateInstallPath(desiredVersion)
 	if err != nil {
 		baseWrapper.ExitWithPrintln(exitcode.InstallPathIssue, err.Error())
 	}
@@ -33,7 +32,6 @@ func NewWrapper(name string) *WrappedLang {
 	return &WrappedLang{
 		BaseWrapper:    baseWrapper,
 		desiredVersion: desiredVersion,
-		installPath:    installPath,
 	}
 }
 
@@ -64,7 +62,7 @@ func (w *WrappedLang) install(_ context.Context) {
 	curl := "curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh"
 	pipe := " | "
 	sh := "sh -s -- -b "
-	command := curl + pipe + sh + w.installPath + " v" + w.desiredVersion
+	command := curl + pipe + sh + w.InstallPath + " v" + w.desiredVersion
 	cmd := exec.Command("sh", "-c", command)
 
 	err := cmd.Start()
@@ -79,7 +77,7 @@ func (w *WrappedLang) install(_ context.Context) {
 }
 
 func (w *WrappedLang) getGolangCILintPath() string {
-	return w.installPath + string(os.PathSeparator) + "golangci-lint"
+	return w.InstallPath + string(os.PathSeparator) + "golangci-lint"
 }
 
 var _ wrapper.Interface = (*WrappedLang)(nil)

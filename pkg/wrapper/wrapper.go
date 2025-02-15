@@ -11,7 +11,7 @@ type wrapperInterface interface {
 	Exit(code int)
 	ExitWithPrint(code int, msg string)
 	ExitWithPrintln(code int, msg string)
-	GenerateInstallPath(version string) (string, error)
+	GenerateInstallPath(version string) error
 }
 
 type Interface interface {
@@ -19,7 +19,8 @@ type Interface interface {
 }
 
 type BaseWrapper struct {
-	Name string
+	Name        string
+	InstallPath string
 }
 
 // os.Exit() does not respect defer so it's neat to wrap its usage in methods.
@@ -38,16 +39,18 @@ func (w *BaseWrapper) ExitWithPrintln(exitCode int, message string) {
 	os.Exit(exitCode)
 }
 
-func (w *BaseWrapper) GenerateInstallPath(version string) (string, error) {
+func (w *BaseWrapper) GenerateInstallPath(version string) error {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
-		return "", fmt.Errorf("failed to get install path: %w", err)
+		return fmt.Errorf("failed to get install path: %w", err)
 	}
 
 	ps := string(os.PathSeparator)
 	installPath := homeDir + ps + ".vmatch" + ps + w.Name + ps + "v" + version
 
-	return installPath, nil
+	w.InstallPath = installPath
+
+	return nil
 }
 
 type NewWrapper func(name string) Interface
