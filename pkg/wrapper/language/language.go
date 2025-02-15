@@ -90,7 +90,7 @@ func (w *WrappedLanguage) install() {
 }
 
 func (w *WrappedLanguage) getGoPath() string {
-	return w.InstallPath + string(os.PathSeparator) + "golangci-lint"
+	return w.InstallPath + string(os.PathSeparator) + "bin" + string(os.PathSeparator) + "go"
 }
 
 var _ wrapper.Interface = (*WrappedLanguage)(nil)
