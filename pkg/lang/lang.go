@@ -13,7 +13,6 @@ import (
 
 type WrappedLang struct {
 	wrapper.BaseWrapper
-	desiredVersion string
 }
 
 func NewWrapper(name string) *WrappedLang {
@@ -30,8 +29,7 @@ func NewWrapper(name string) *WrappedLang {
 	}
 
 	return &WrappedLang{
-		BaseWrapper:    baseWrapper,
-		desiredVersion: desiredVersion,
+		BaseWrapper: baseWrapper,
 	}
 }
 
@@ -62,7 +60,7 @@ func (w *WrappedLang) install(_ context.Context) {
 	curl := "curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh"
 	pipe := " | "
 	sh := "sh -s -- -b "
-	command := curl + pipe + sh + w.InstallPath + " v" + w.desiredVersion
+	command := curl + pipe + sh + w.InstallPath + " v" + w.DesiredVersion
 	cmd := exec.Command("sh", "-c", command)
 
 	err := cmd.Start()

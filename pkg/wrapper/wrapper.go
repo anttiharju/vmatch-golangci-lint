@@ -19,8 +19,9 @@ type Interface interface {
 }
 
 type BaseWrapper struct {
-	Name        string
-	InstallPath string
+	Name           string
+	InstallPath    string
+	DesiredVersion string
 }
 
 // os.Exit() does not respect defer so it's neat to wrap its usage in methods.
@@ -49,6 +50,7 @@ func (w *BaseWrapper) GenerateInstallPath(version string) error {
 	installPath := homeDir + ps + ".vmatch" + ps + w.Name + ps + "v" + version
 
 	w.InstallPath = installPath
+	w.DesiredVersion = version
 
 	return nil
 }

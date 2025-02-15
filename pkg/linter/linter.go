@@ -14,7 +14,6 @@ import (
 
 type WrappedLinter struct {
 	wrapper.BaseWrapper
-	desiredVersion string
 }
 
 func NewWrapper(name string) *WrappedLinter {
@@ -31,8 +30,7 @@ func NewWrapper(name string) *WrappedLinter {
 	}
 
 	return &WrappedLinter{
-		BaseWrapper:    baseWrapper,
-		desiredVersion: desiredVersion,
+		BaseWrapper: baseWrapper,
 	}
 }
 
@@ -67,7 +65,7 @@ func (w *WrappedLinter) install(_ context.Context) {
 	curl := "curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh"
 	pipe := " | "
 	sh := "sh -s -- -b "
-	command := curl + pipe + sh + w.InstallPath + " v" + w.desiredVersion
+	command := curl + pipe + sh + w.InstallPath + " v" + w.DesiredVersion
 	cmd := exec.Command("sh", "-c", command)
 
 	err := cmd.Start()
