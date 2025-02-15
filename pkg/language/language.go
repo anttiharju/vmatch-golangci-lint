@@ -1,4 +1,4 @@
-package lang
+package language
 
 import (
 	"errors"
@@ -12,7 +12,7 @@ import (
 	"github.com/anttiharju/vmatch/pkg/wrapper"
 )
 
-type WrappedLang struct {
+type WrappedLanguage struct {
 	wrapper.BaseWrapper
 }
 
@@ -30,7 +30,7 @@ func langParser(content []byte) (string, error) {
 	return "", errors.New("cannot find go version")
 }
 
-func NewWrapper(name string) *WrappedLang {
+func NewWrapper(name string) *WrappedLanguage {
 	baseWrapper := wrapper.BaseWrapper{Name: name}
 
 	desiredVersion, err := finder.GetVersion("go.mod", langParser)
@@ -43,12 +43,12 @@ func NewWrapper(name string) *WrappedLang {
 		baseWrapper.ExitWithPrintln(exitcode.InstallPathIssue, err.Error())
 	}
 
-	return &WrappedLang{
+	return &WrappedLanguage{
 		BaseWrapper: baseWrapper,
 	}
 }
 
-func (w *WrappedLang) Run(args []string) int {
+func (w *WrappedLanguage) Run(args []string) int {
 	if w.noBinary() {
 		w.install()
 	}
@@ -62,13 +62,13 @@ func (w *WrappedLang) Run(args []string) int {
 	return lang.ProcessState.ExitCode()
 }
 
-func (w *WrappedLang) noBinary() bool {
+func (w *WrappedLanguage) noBinary() bool {
 	_, err := os.Stat(w.getGolangCILintPath())
 
 	return os.IsNotExist(err)
 }
 
-func (w *WrappedLang) install() {
+func (w *WrappedLanguage) install() {
 	//nolint:lll // Official binary install command:
 	// curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.59.1
 	// todo: pin to a sha instead of master, but automate updates
@@ -89,8 +89,8 @@ func (w *WrappedLang) install() {
 	}
 }
 
-func (w *WrappedLang) getGolangCILintPath() string {
+func (w *WrappedLanguage) getGolangCILintPath() string {
 	return w.InstallPath + string(os.PathSeparator) + "golangci-lint"
 }
 
-var _ wrapper.Interface = (*WrappedLang)(nil)
+var _ wrapper.Interface = (*WrappedLanguage)(nil)

@@ -1,7 +1,7 @@
 package picker
 
 import (
-	"github.com/anttiharju/vmatch/pkg/lang"
+	"github.com/anttiharju/vmatch/pkg/language"
 	"github.com/anttiharju/vmatch/pkg/linter"
 )
 
@@ -11,8 +11,8 @@ func firstArgIsGo(args []string) bool {
 
 func SelectWrapper(args []string) int {
 	if firstArgIsGo(args) {
-		wrappedLang := lang.NewWrapper("vmatch-go")
-		exitCode := wrappedLang.Run(args[1:])
+		wrappedLanguage := language.NewWrapper("vmatch-go")
+		exitCode := wrappedLanguage.Run(args[1:])
 
 		return exitCode
 	}

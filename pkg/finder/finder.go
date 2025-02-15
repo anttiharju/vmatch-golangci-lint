@@ -12,7 +12,7 @@ import (
 func GetVersion(filename string, parse parser.Parser) (string, error) {
 	filePath, err := locateFile(filename)
 	if err != nil {
-		return "", fmt.Errorf("cannot find lang version file '%s': %w", filename, err)
+		return "", fmt.Errorf("cannot find version file '%s': %w", filename, err)
 	}
 
 	content, err := os.ReadFile(filePath)
