@@ -51,7 +51,7 @@ func (w *WrappedLinter) Run(args []string) int {
 
 	//nolint:gosec // I don't think a wrapper can avoid G204.
 	linter := exec.Command(w.getGolangCILintPath(), args...)
-	linterOutput, _ := linter.Output()
+	linterOutput, _ := linter.CombinedOutput()
 
 	fmt.Print(string(linterOutput))
 
