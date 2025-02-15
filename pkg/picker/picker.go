@@ -1,8 +1,8 @@
 package picker
 
 import (
-	"github.com/anttiharju/vmatch/pkg/language"
-	"github.com/anttiharju/vmatch/pkg/linter"
+	"github.com/anttiharju/vmatch/pkg/wrapper/language"
+	"github.com/anttiharju/vmatch/pkg/wrapper/linter"
 )
 
 func firstArgIsGo(args []string) bool {
