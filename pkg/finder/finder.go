@@ -14,7 +14,12 @@ func GetLangVersion(filename string) (string, error) {
 		return "", fmt.Errorf("cannot find lang version file '%s': %w", filename, err)
 	}
 
-	return readLangVersion(filePath)
+	content, err := os.ReadFile(filePath)
+	if err != nil {
+		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
+	}
+
+	return readLangVersion(content, filePath)
 }
 
 func GetLinterVersion(filename string) (string, error) {
@@ -23,7 +28,12 @@ func GetLinterVersion(filename string) (string, error) {
 		return "", fmt.Errorf("cannot find linter version file '%s': %w", filename, err)
 	}
 
-	return readLinterVersion(filePath)
+	content, err := os.ReadFile(filePath)
+	if err != nil {
+		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
+	}
+
+	return readLinterVersion(content, filePath)
 }
 
 func locateFile(filename string) (string, error) {
@@ -49,12 +59,7 @@ func locateFile(filename string) (string, error) {
 	return "", fmt.Errorf("cannot find version file '%s'", filename)
 }
 
-func readLangVersion(filePath string) (string, error) {
-	content, err := os.ReadFile(filePath)
-	if err != nil {
-		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
-	}
-
+func readLangVersion(content []byte, filePath string) (string, error) {
 	lines := strings.Split(string(content), "\n")
 	for _, line := range lines {
 		line = strings.TrimSpace(line)
@@ -68,12 +73,7 @@ func readLangVersion(filePath string) (string, error) {
 	return "", fmt.Errorf("cannot find go version in file '%s'", filePath)
 }
 
-func readLinterVersion(filePath string) (string, error) {
-	content, err := os.ReadFile(filePath)
-	if err != nil {
-		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
-	}
-
+func readLinterVersion(content []byte, _ string) (string, error) {
 	trimmed := strings.TrimSpace(string(content))
 
 	return validateVersion(trimmed)
