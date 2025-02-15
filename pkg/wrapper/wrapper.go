@@ -7,7 +7,7 @@ import (
 )
 
 type wrapperInterface interface {
-	Run(ctx context.Context) int
+	Run(ctx context.Context, args []string) int
 	Exit(code int)
 	ExitWithPrint(code int, msg string)
 	ExitWithPrintln(code int, msg string)

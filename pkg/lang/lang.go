@@ -38,12 +38,10 @@ func NewWrapper(name string) *WrappedLang {
 	}
 }
 
-func (w *WrappedLang) Run(ctx context.Context) int {
+func (w *WrappedLang) Run(ctx context.Context, args []string) int {
 	if w.noBinary() {
 		w.install(ctx)
 	}
-
-	args := os.Args[1:]
 
 	//nolint:gosec // I don't think a wrapper can avoid G204.
 	lang := exec.Command(w.getGolangCILintPath(), args...)

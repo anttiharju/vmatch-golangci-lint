@@ -39,12 +39,11 @@ func NewWrapper(name string) *WrappedLinter {
 	}
 }
 
-func (w *WrappedLinter) Run(ctx context.Context) int {
+func (w *WrappedLinter) Run(ctx context.Context, args []string) int {
 	if w.noBinary() {
 		w.install(ctx)
 	}
 
-	args := os.Args[1:]
 	if !slices.Contains(args, "--color") {
 		args = append(args, "--color", "always")
 	}
