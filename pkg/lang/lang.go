@@ -1,9 +1,11 @@
 package lang
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/anttiharju/vmatch/pkg/exitcode"
 	"github.com/anttiharju/vmatch/pkg/finder"
@@ -14,10 +16,24 @@ type WrappedLang struct {
 	wrapper.BaseWrapper
 }
 
+func langParser(content []byte) (string, error) {
+	lines := strings.Split(string(content), "\n")
+	for _, line := range lines {
+		line = strings.TrimSpace(line)
+		if strings.HasPrefix(line, "go ") {
+			trimmed := strings.TrimPrefix(line, "go ")
+
+			return trimmed, nil
+		}
+	}
+
+	return "", errors.New("cannot find go version")
+}
+
 func NewWrapper(name string) *WrappedLang {
 	baseWrapper := wrapper.BaseWrapper{Name: name}
 
-	desiredVersion, err := finder.GetLangVersion("go.mod")
+	desiredVersion, err := finder.GetVersion("go.mod", langParser)
 	if err != nil {
 		baseWrapper.ExitWithPrintln(exitcode.VersionReadFileIssue, err.Error())
 	}

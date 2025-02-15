@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 	"slices"
+	"strings"
 
 	"github.com/anttiharju/vmatch/pkg/exitcode"
 	"github.com/anttiharju/vmatch/pkg/finder"
@@ -15,10 +16,16 @@ type WrappedLinter struct {
 	wrapper.BaseWrapper
 }
 
+func linterParser(content []byte) (string, error) {
+	trimmed := strings.TrimSpace(string(content))
+
+	return trimmed, nil
+}
+
 func NewWrapper(name string) *WrappedLinter {
 	baseWrapper := wrapper.BaseWrapper{Name: name}
 
-	desiredVersion, err := finder.GetLinterVersion(".golangci-version")
+	desiredVersion, err := finder.GetVersion(".golangci-version", linterParser)
 	if err != nil {
 		baseWrapper.ExitWithPrintln(exitcode.VersionReadFileIssue, err.Error())
 	}

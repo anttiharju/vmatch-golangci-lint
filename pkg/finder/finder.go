@@ -5,10 +5,11 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-	"strings"
+
+	"github.com/anttiharju/vmatch/pkg/parser"
 )
 
-func GetLangVersion(filename string) (string, error) {
+func GetVersion(filename string, parse parser.Parser) (string, error) {
 	filePath, err := locateFile(filename)
 	if err != nil {
 		return "", fmt.Errorf("cannot find lang version file '%s': %w", filename, err)
@@ -19,21 +20,12 @@ func GetLangVersion(filename string) (string, error) {
 		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
 	}
 
-	return readLangVersion(content, filePath)
-}
-
-func GetLinterVersion(filename string) (string, error) {
-	filePath, err := locateFile(filename)
+	version, err := parse(content)
 	if err != nil {
-		return "", fmt.Errorf("cannot find linter version file '%s': %w", filename, err)
+		return "", fmt.Errorf("could not parse %s: %w", filePath, err)
 	}
 
-	content, err := os.ReadFile(filePath)
-	if err != nil {
-		return "", fmt.Errorf("cannot read version file '%s': %w", filePath, err)
-	}
-
-	return readLinterVersion(content, filePath)
+	return validateVersion(version)
 }
 
 func locateFile(filename string) (string, error) {
@@ -57,26 +49,6 @@ func locateFile(filename string) (string, error) {
 	}
 
 	return "", fmt.Errorf("cannot find version file '%s'", filename)
-}
-
-func readLangVersion(content []byte, filePath string) (string, error) {
-	lines := strings.Split(string(content), "\n")
-	for _, line := range lines {
-		line = strings.TrimSpace(line)
-		if strings.HasPrefix(line, "go ") {
-			trimmed := strings.TrimPrefix(line, "go ")
-
-			return validateVersion(trimmed)
-		}
-	}
-
-	return "", fmt.Errorf("cannot find go version in file '%s'", filePath)
-}
-
-func readLinterVersion(content []byte, _ string) (string, error) {
-	trimmed := strings.TrimSpace(string(content))
-
-	return validateVersion(trimmed)
 }
 
 var versionPattern = regexp.MustCompile(`^\d+\.\d+\.\d+$`)
