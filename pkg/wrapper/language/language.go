@@ -33,7 +33,7 @@ func languageParser(content []byte) (string, error) {
 }
 
 // No patch as tools like stringer mandate not having it.
-var versionPattern = regexp.MustCompile(`^\d+\.\d+$`) // major.minor
+var versionPattern = regexp.MustCompile(`^\d+\.\d+(?:\.\d+)?$`) // major.minor or major.minor.patch
 
 func validateVersion(version string) (string, error) {
 	if !versionPattern.MatchString(version) {
