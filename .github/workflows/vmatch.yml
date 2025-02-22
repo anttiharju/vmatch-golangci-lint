@@ -17,6 +17,8 @@ jobs:
       - if: always()
         name: build
         uses: ./.github/actions/build-go
+        with:
+          cache: false # Suppress warning about a 'missing' go.sum
 
       - if: always()
         name: docs
