@@ -25,7 +25,7 @@ jobs:
         uses: anttiharju/actions/release@v0
       - name: Get metadata
         id: get-metadata
-        uses: anttiharju/actions/go/get-metadata@v0
+        uses: anttiharju/actions/get-go-metadata@v0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: false # Suppress warning about a 'missing' go.sum

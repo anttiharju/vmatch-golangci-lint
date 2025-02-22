@@ -44,8 +44,8 @@ jobs:
         with:
           repository: anttiharju/homebrew-tap
           token: ${{ steps.generate-token.outputs.token }}
-      - name: Render formula
-        uses: anttiharju/actions/render-brew-formula@v0
+      - name: Update formula
+        uses: anttiharju/actions/update-brew-formula@v0
         with:
           template: Go
           app-name: ${{ github.event.repository.name }}
