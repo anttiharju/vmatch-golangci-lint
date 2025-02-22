@@ -1,0 +1,10 @@
+name: Publish docs
+description: Publishes the documentation to GitHub Pages with mkdocs gh-deploy.
+
+runs:
+  using: "composite"
+  steps:
+    - shell: sh
+      run: |
+        pip install mkdocs
+        mkdocs gh-deploy

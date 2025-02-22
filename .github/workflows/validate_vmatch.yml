@@ -17,3 +17,6 @@ jobs:
       - if: always()
         name: go build
         uses: ./.github/actions/build
+
+      - name: Publish docs
+        uses: ./.github/actions/publish-docs
