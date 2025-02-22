@@ -26,5 +26,5 @@ jobs:
         uses: anttiharju/actions/validate-docs@v0
 
       - if: always()
-        name: Actions
+        name: CI
         uses: ./.github/actions/validate-actions
