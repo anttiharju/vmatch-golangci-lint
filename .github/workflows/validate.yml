@@ -3,10 +3,10 @@ on:
     branches:
       - main
     paths:
-      - "**/*"
       - "!pkg/**"
       - "!main.go"
       - "!go.mod"
+      - "**/*"
   pull_request:
   workflow_call:
 
