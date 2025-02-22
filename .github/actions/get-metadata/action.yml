@@ -1,5 +1,5 @@
-name: Get project details
-description: Outputs details about the project for publish workflow call
+name: Get metadata
+description: Provides metadata about the project for the publish workflow call
 inputs:
   github-token:
     description: "GitHub token for API access"
@@ -18,8 +18,8 @@ runs:
       with:
         go-version-file: "go.mod"
         cache: ${{ inputs.cache }}
-    - name: Extract details
-      id: extract-details
+    - name: Get metadata
+      id: get-metadata
       shell: sh
       env:
         GH_TOKEN: ${{ inputs.github-token }}
@@ -35,16 +35,16 @@ runs:
 outputs:
   description:
     description: "GitHub project description"
-    value: ${{ steps.extract-details.outputs.description }}
+    value: ${{ steps.get-metadata.outputs.description }}
   homepage:
     description: "Repository homepage URL"
-    value: ${{ steps.extract-details.outputs.homepage }}
+    value: ${{ steps.get-metadata.outputs.homepage }}
   url:
     description: "Latest release tarball URL"
-    value: ${{ steps.extract-details.outputs.url }}
+    value: ${{ steps.get-metadata.outputs.url }}
   go_version:
     description: "Go version from go.mod"
-    value: ${{ steps.extract-details.outputs.go_version }}
+    value: ${{ steps.get-metadata.outputs.go_version }}
   version:
     description: "Latest release version"
-    value: ${{ steps.extract-details.outputs.version }}
+    value: ${{ steps.get-metadata.outputs.version }}
