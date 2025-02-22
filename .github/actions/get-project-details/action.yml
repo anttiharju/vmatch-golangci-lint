@@ -1,5 +1,5 @@
-name: Output Go project details
-description: Outputs details about a Go project for homebrew-tap workflow call
+name: Get project details
+description: Outputs details about the project for distribute workflow call
 inputs:
   github-token:
     description: "GitHub token for API access"

@@ -30,7 +30,7 @@ jobs:
         uses: anttiharju/actions/release@v0
       - name: Get project details
         id: get-project-details
-        uses: ./.github/actions/output-go-project-details
+        uses: ./.github/actions/get-project-details
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: false # Suppress warning about a 'missing' go.sum
