@@ -4,7 +4,8 @@ on:
 
 # also update lefthook.yml
 jobs:
-  vmatch:
+  validate:
+    name: Validate
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
