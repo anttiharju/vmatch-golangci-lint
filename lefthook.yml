@@ -4,6 +4,7 @@ output:
 
 # also update validate.yml
 pre-commit:
+  parallel: true
   jobs:
     - name: Build
       run: go build
