@@ -25,9 +25,6 @@ jobs:
         with:
           token: ${{ steps.generate-token.outputs.token }}
 
-      - name: Install MkDocs
-        uses: ./.github/actions/install-mkdocs
-
       - name: Validate docs
         uses: ./.github/actions/validate-docs
 

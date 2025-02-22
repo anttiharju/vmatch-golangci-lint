@@ -6,4 +6,5 @@ runs:
   steps:
     - shell: sh
       run: |
+        pip install mkdocs
         mkdocs build --strict

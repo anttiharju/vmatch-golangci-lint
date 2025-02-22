@@ -1,9 +1,0 @@
-name: Install MkDocs
-description: Install MkDocs via pip
-
-runs:
-  using: "composite"
-  steps:
-    - shell: sh
-      run: |
-        pip install mkdocs
