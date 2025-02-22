@@ -24,3 +24,11 @@ jobs:
       - if: always()
         name: Docs
         uses: anttiharju/actions/validate-docs@v0
+
+      - if: always()
+        name: action-validator
+        uses: anttiharju/actions/action-validator@v0
+
+      - if: always()
+        name: actionlint
+        uses: anttiharju/actions/actionlint@v0
