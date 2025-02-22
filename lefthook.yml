@@ -22,8 +22,7 @@ pre-commit:
           - name: action-validator
             run: |
               find ./.github -mindepth 2 -type f -name "*.yml" -exec action-validator --verbose {} +
-          - run: |
-              actionlint
+          - run: actionlint
       glob: ".github/*"
       stage_fixed: true
 
