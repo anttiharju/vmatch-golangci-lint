@@ -11,6 +11,7 @@ jobs:
   validate:
     name: Validate
     uses: ./.github/workflows/validate_vmatch.yml
+    secrets: inherit
 
   release:
     name: Release

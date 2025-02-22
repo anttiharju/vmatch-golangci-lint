@@ -1,6 +1,11 @@
 name: Validate
 on:
   workflow_call:
+    secrets:
+      AUTOMATION_APP_ID:
+        required: true
+      AUTOMATION_APP_PRIVATE_KEY:
+        required: true
 
 jobs:
   vmatch:
@@ -18,7 +23,14 @@ jobs:
         name: go build
         uses: ./.github/actions/build
 
+      - name: Generate docs token
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_APP_PRIVATE_KEY }}
+          repositories: vmatch
       - name: Publish docs
         uses: ./.github/actions/publish-docs
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.generate-token.outputs.token }}
