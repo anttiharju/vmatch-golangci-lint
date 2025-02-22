@@ -14,4 +14,4 @@ runs:
         GIT_AUTHOR_NAME: "${{ github.actor }}"
         GIT_AUTHOR_EMAIL: "${{ github.actor }}@users.noreply.github.com"
       run: |
-        mkdocs gh-deploy
+        mkdocs gh-deploy --force --no-history
