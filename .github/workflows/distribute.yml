@@ -46,7 +46,7 @@ jobs:
         with:
           template: Go
           app-name: ${{ github.event.repository.name }}
-          description: Wrapper that automatically calls the golangci-lint version matching your project
+          description: Go & golangci-lint version automation
           homepage: ${{ inputs.homepage }}
           url: ${{ inputs.url }}
           go-version: ${{ inputs.go-version }}
