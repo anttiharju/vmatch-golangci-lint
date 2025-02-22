@@ -35,7 +35,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: false # Suppress warning about a 'missing' go.sum
       - name: Publish docs
-        uses: ./.github/actions/publish-docs
+        uses: anttiharju/actions/publish-docs@v0
         with:
           committer: "anttiharju[bot]"
     outputs:

@@ -22,4 +22,4 @@ jobs:
 
       - if: always()
         name: docs
-        uses: ./.github/actions/validate-docs
+        uses: anttiharju/actions/validate-docs@v0
