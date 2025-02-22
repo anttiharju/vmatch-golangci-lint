@@ -8,14 +8,13 @@ permissions:
   contents: write
 
 jobs:
-  validate:
-    name: Validate
-    uses: ./.github/workflows/validate_vmatch.yml
-    secrets: inherit
+  go:
+    name: Go
+    uses: ./.github/workflows/go.yml
 
   release:
     name: Release
-    needs: validate
+    needs: go
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout

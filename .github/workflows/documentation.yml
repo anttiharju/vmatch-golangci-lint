@@ -1,14 +1,16 @@
-name: Validate
+name: Documentation
 on:
-  workflow_call:
-    secrets:
-      AUTOMATION_APP_ID:
-        required: true
-      AUTOMATION_APP_PRIVATE_KEY:
-        required: true
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**/*'
+  pull_request:
+    paths:
+      - 'docs/**/*'
 
 jobs:
-  vmatch:
+  validate:
     runs-on: ubuntu-24.04
     steps:
       - name: Generate docs token
@@ -23,14 +25,11 @@ jobs:
         with:
           token: ${{ steps.generate-token.outputs.token }}
 
-      - name: golangci-lint
-        uses: anttiharju/actions/lint-go@v0
-        with:
-          version-file: ".golangci-version"
+      - name: Install MkDocs
+        uses: ./.github/actions/install-mkdocs
 
-      - if: always()
-        name: go build
-        uses: ./.github/actions/build
+      - name: Validate docs
+        uses: ./.github/actions/validate-docs
 
       - name: Publish docs
         uses: ./.github/actions/publish-docs
