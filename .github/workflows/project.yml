@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - main
-    paths-ignore: # opposite of release.yml
+    paths-ignore:
       - "pkg/**"
       - "main.go"
       - "go.mod"
