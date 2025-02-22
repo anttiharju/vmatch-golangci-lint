@@ -25,3 +25,9 @@ pre-commit:
         actionlint
       glob: ".github/**"
       stage_fixed: true
+
+    - name: Prettier
+      run: |
+        npx prettier --write .
+      glob: "{*.md,*.yml}"
+      stage_fixed: true

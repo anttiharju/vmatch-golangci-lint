@@ -29,3 +29,7 @@ jobs:
       - if: always()
         name: Actions
         uses: anttiharju/actions/lint-actions@v0
+
+      - if: always()
+        name: Prettier
+        uses: anttiharju/actions/prettier@v0
