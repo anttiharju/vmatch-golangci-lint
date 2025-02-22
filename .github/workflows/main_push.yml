@@ -37,6 +37,7 @@ jobs:
       - name: Publish docs
         uses: ./.github/actions/publish-docs
     outputs:
+      description: ${{ steps.output-go-details.outputs.description }}
       homepage: ${{ steps.output-go-details.outputs.homepage }}
       url: ${{ steps.output-go-details.outputs.url }}
       go_version: ${{ steps.output-go-details.outputs.go_version }}
@@ -47,6 +48,7 @@ jobs:
     needs: release
     uses: ./.github/workflows/distribute.yml
     with:
+      description: ${{ needs.release.outputs.description }}
       homepage: ${{ needs.release.outputs.homepage }}
       url: ${{ needs.release.outputs.url }}
       go-version: ${{ needs.release.outputs.go_version }}

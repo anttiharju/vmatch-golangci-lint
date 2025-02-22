@@ -25,6 +25,7 @@ runs:
         GH_TOKEN: ${{ inputs.github-token }}
       run: |
         {
+          echo "description=\"$(gh repo view  --json description --jq .description)\""
           url=$(gh api repos/${{ github.repository }}/releases/latest --jq .tarball_url)
           echo "homepage=$(gh api repos/${{ github.repository }} --jq .homepage)"
           echo "url=$url"
@@ -32,6 +33,9 @@ runs:
           echo "version=$(basename "$url")"
         } >> "$GITHUB_OUTPUT"
 outputs:
+  description:
+    description: "GitHub project description"
+    value: ${{ steps.extract-details.outputs.description }}
   homepage:
     description: "Repository homepage URL"
     value: ${{ steps.extract-details.outputs.homepage }}
