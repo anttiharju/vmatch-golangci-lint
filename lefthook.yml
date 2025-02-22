@@ -16,7 +16,7 @@ pre-commit:
       run: |
         mkdocs build --strict
         prettier --write "docs/**/*.md"
-      glob: "docs/**"
+      glob: "{docs/**,mkdocs.yml}"
       stage_fixed: true
 
     - name: Actions
