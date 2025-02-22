@@ -11,24 +11,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Style
-        uses: anttiharju/actions/lint-go@v0
-        with:
-          version-file: ".golangci-version"
-
-      - if: always()
-        name: Build
+      - name: Build
         uses: ./.github/actions/build
         with:
           cache: false # Suppress warning about a 'missing' go.sum
 
       - if: always()
-        name: Docs
-        uses: anttiharju/actions/lint-docs@v0
+        name: Style
+        uses: anttiharju/actions/lint-go@v0
+        with:
+          version-file: ".golangci-version"
 
       - if: always()
         name: Actions
         uses: anttiharju/actions/lint-actions@v0
+
+      - if: always()
+        name: Docs
+        uses: anttiharju/actions/lint-docs@v0
 
       - if: always()
         name: Prettier
