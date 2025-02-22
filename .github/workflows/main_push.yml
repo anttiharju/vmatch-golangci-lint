@@ -36,6 +36,8 @@ jobs:
           cache: false # Suppress warning about a 'missing' go.sum
       - name: Publish docs
         uses: ./.github/actions/publish-docs
+        with:
+          committer: "anttiharju[bot]"
     outputs:
       description: ${{ steps.get-project-details.outputs.description }}
       homepage: ${{ steps.get-project-details.outputs.homepage }}
