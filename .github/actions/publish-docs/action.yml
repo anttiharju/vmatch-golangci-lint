@@ -6,8 +6,8 @@ runs:
   steps:
     - shell: sh
       env:
-        GIT_COMMITTER_NAME: "${{ github.actor }}"
-        GIT_COMMITTER_EMAIL: "${{ github.actor }}@users.noreply.github.com" 
+        GIT_COMMITTER_NAME: "anttiharju[bot]"
+        GIT_COMMITTER_EMAIL: "anttiharju[bot]@users.noreply.github.com" 
       run: |
         pip install mkdocs
         mkdocs gh-deploy --force --no-history
