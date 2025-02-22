@@ -16,7 +16,7 @@ jobs:
 
       - if: always()
         name: build
-        uses: ./.github/actions/build-go
+        uses: ./.github/actions/build
         with:
           cache: false # Suppress warning about a 'missing' go.sum
 
