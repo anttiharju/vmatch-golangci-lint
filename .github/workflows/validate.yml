@@ -16,7 +16,7 @@ jobs:
           cache: false # Suppress warning about a 'missing' go.sum
 
       - if: always()
-        name: Style
+        name: Lint
         uses: anttiharju/actions/lint-go@v0
         with:
           version-file: ".golangci-version"
