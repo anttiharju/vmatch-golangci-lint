@@ -34,7 +34,7 @@ I saw mismatching linter versions causing confusion in a team so I thought to au
 - Work out implications of wrapping go binary
   - Setup aliases with the brew formula, use advice from [here](https://scriptingosx.com/2017/05/where-paths-come-from/)
   - Limit version management to only happen under $HOME to not collide with installation scripts (for example homebrew formulas)
-- Distribute to winget (no idea on details)
+- Publish to winget (no idea on details)
 - Simplify these docs, currently this is a collection of somewhat random thoughts.
 - Automation to be able to do security hardening
 - Dark mode for GitHub pages deployment

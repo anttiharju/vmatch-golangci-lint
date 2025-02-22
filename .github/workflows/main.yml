@@ -44,10 +44,10 @@ jobs:
       go_version: ${{ steps.get-project-details.outputs.go_version }}
       version: ${{ steps.get-project-details.outputs.version }}
 
-  distribute:
-    name: Distribute
+  publish:
+    name: Publish
     needs: release
-    uses: ./.github/workflows/distribute.yml
+    uses: ./.github/workflows/publish.yml
     permissions:
       contents: write
     with:

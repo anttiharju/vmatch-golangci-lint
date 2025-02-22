@@ -1,5 +1,5 @@
 name: Get project details
-description: Outputs details about the project for distribute workflow call
+description: Outputs details about the project for publish workflow call
 inputs:
   github-token:
     description: "GitHub token for API access"
