@@ -6,6 +6,7 @@ on:
 
 jobs:
   validate:
+    name: Validate
     uses: ./.github/workflows/validate.yml
 
   release:
