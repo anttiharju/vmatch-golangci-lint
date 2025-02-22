@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build
-        uses: ./.github/actions/build
+        uses: ./.github/actions/build-go
         with:
           cache: false # Suppress warning about a 'missing' go.sum
 
