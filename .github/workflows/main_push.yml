@@ -17,8 +17,16 @@ jobs:
     needs: go
     runs-on: ubuntu-24.04
     steps:
+      - name: Generate docs token
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_APP_PRIVATE_KEY }}
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
       - name: Release
         uses: anttiharju/actions/release@v0
       - name: Extract details
@@ -26,6 +34,8 @@ jobs:
         uses: ./.github/actions/extract-details
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish docs
+        uses: ./.github/actions/publish-docs
     outputs:
       homepage: ${{ steps.extract-details.outputs.homepage }}
       url: ${{ steps.extract-details.outputs.url }}
