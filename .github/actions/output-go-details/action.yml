@@ -1,5 +1,5 @@
-name: Extract details
-description: Extracts details for homebrew-tap workflow call
+name: Output Go details
+description: Outputs details about a Go project for homebrew-tap workflow call
 inputs:
   github-token:
     description: "GitHub token for API access"
