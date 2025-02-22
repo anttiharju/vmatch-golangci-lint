@@ -1,16 +1,12 @@
 name: Publish docs
 description: Publishes the documentation to GitHub Pages with mkdocs gh-deploy.
-inputs:
-  github-token:
-    description: "GitHub token for API access"
-    required: true
 
 runs:
   using: "composite"
   steps:
     - shell: sh
-      env:
-        GH_TOKEN: ${{ inputs.github-token }}
       run: |
         pip install mkdocs
+    - shell: sh
+      run: |
         mkdocs gh-deploy
