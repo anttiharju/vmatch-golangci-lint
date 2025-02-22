@@ -7,6 +7,8 @@ pre-commit:
   jobs:
     - name: Build
       run: go build
+      glob: "{pkg/**,main.go,go.mod}"
+      stage_fixed: true
 
     - name: Lint
       run: golangci-lint run --fix
