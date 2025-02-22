@@ -1,4 +1,4 @@
-name: Go
+name: vmatch
 on:
   workflow_call:
 
@@ -9,11 +9,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: golangci-lint
+      - name: style
         uses: anttiharju/actions/lint-go@v0
         with:
           version-file: ".golangci-version"
 
       - if: always()
-        name: go build
-        uses: ./.github/actions/build
+        name: build
+        uses: ./.github/actions/build-go
+
+      - if: always()
+        name: docs
+        uses: ./.github/actions/validate-docs
