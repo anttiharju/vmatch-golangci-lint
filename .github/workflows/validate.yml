@@ -11,13 +11,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build
-        uses: anttiharju/actions/build-go@v0
+        uses: anttiharju/actions/go/build@v0
         with:
           cache: false # Suppress warning about a 'missing' go.sum
 
       - if: always()
         name: Lint
-        uses: anttiharju/actions/lint-go@v0
+        uses: anttiharju/actions/go/lint@v0
         with:
           version-file: ".golangci-version"
 
