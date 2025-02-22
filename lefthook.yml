@@ -20,8 +20,9 @@ pre-commit:
         parallel: true
         jobs:
           - name: action-validator
-            run: |
-              find ./.github -mindepth 2 -type f -name "*.yml" -exec action-validator --verbose {} +
+            run: >
+              find ./.github -type f -mindepth 2 -name "*.yml" -exec
+              action-validator --verbose {} +
           - run: actionlint
       glob: ".github/*"
       stage_fixed: true
