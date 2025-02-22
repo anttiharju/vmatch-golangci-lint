@@ -19,7 +19,7 @@ pre-commit:
       glob: "docs/**/*"
       stage_fixed: true
 
-    - name: CI manifests
+    - name: Actions
       run: |
         find ./.github -mindepth 2 -type f -name "*.yml" -exec action-validator --verbose {} +
         actionlint

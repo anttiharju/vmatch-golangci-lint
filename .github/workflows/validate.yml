@@ -26,5 +26,5 @@ jobs:
         uses: anttiharju/actions/lint-docs@v0
 
       - if: always()
-        name: CI manifests
+        name: Actions
         uses: anttiharju/actions/lint-actions@v0
