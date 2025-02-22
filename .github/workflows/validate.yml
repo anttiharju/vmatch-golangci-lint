@@ -27,4 +27,4 @@ jobs:
 
       - if: always()
         name: CI manifests
-        uses: ./.github/actions/validate-actions
+        uses: anttiharju/actions/lint-actions@v0
