@@ -8,12 +8,12 @@ permissions:
   contents: write
 
 jobs:
-  project:
-    uses: ./.github/workflows/project.yml
+  validate:
+    uses: ./.github/workflows/validate.yml
 
   release:
     name: Release
-    needs: project
+    needs: validate
     runs-on: ubuntu-24.04
     steps:
       - name: Generate docs token
