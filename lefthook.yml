@@ -2,6 +2,7 @@ output:
   - success
   - failure
 
+# also update validate.yml
 pre-commit:
   jobs:
     - name: Style

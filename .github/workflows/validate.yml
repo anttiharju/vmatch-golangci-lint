@@ -2,6 +2,7 @@ name: Validate
 on:
   workflow_call:
 
+# also update lefthook.yml
 jobs:
   project:
     name: Project
