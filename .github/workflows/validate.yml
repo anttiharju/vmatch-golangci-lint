@@ -23,8 +23,8 @@ jobs:
 
       - if: always()
         name: Docs
-        uses: anttiharju/actions/validate-docs@v0
+        uses: anttiharju/actions/lint-docs@v0
 
       - if: always()
-        name: CI
+        name: CI manifests
         uses: ./.github/actions/validate-actions
