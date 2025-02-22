@@ -8,12 +8,13 @@ on:
       - "go.mod"
 
 jobs:
-  vmatch:
-    uses: ./.github/workflows/vmatch.yml
+  project:
+    name: Project
+    uses: ./.github/workflows/project.yml
 
   release:
     name: Release
-    needs: vmatch
+    needs: project
     runs-on: ubuntu-24.04
     permissions:
       contents: write
