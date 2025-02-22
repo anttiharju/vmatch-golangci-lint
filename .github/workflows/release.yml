@@ -2,6 +2,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "pkg/**"
+      - "main.go"
+      - "go.mod"
 
 jobs:
   validate:
@@ -15,22 +19,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Generate docs token
-        uses: actions/create-github-app-token@v1
-        id: generate-token
-        with:
-          app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
-          private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
       - name: Release vmatch
         uses: anttiharju/actions/release@v0
-      - name: Release docs
-        uses: anttiharju/actions/release-docs@v0
-        with:
-          committer: "anttiharju[bot]"
       - name: Get metadata
         id: get-metadata
         uses: anttiharju/actions/go/get-metadata@v0
