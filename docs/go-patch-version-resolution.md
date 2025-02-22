@@ -1,4 +1,4 @@
-# Go patch resolution
+# Go patch version resolution
 
 This document outlines how vmatch resolves which patch version to pick when only minor version has been specfied in `go.mod`.
 
