@@ -2,5 +2,5 @@ name: Pull Request
 on: pull_request
 
 jobs:
-  vmatch:
-    uses: ./.github/workflows/vmatch.yml
+  project:
+    uses: ./.github/workflows/project.yml
