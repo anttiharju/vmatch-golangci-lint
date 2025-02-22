@@ -6,7 +6,7 @@ pre-commit:
   jobs:
     - name: Style
       run: golangci-lint run --fix
-      glob: "*.go"
+      glob: "{*.go,.golangci*}"
       stage_fixed: true
 
     - name: Build
