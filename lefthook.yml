@@ -30,5 +30,5 @@ pre-commit:
     - name: Prettier
       run: |
         npx prettier --write .
-      glob: "{*.md,*.yml}"
+      glob: "*{.md,.yml}"
       stage_fixed: true
