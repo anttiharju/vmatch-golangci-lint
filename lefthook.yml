@@ -16,7 +16,7 @@ pre-commit:
       run: |
         mkdocs build --strict
         prettier --write "docs/**/*.md"
-      glob: "docs/**/*"
+      glob: "docs/**"
       stage_fixed: true
 
     - name: Actions
@@ -24,5 +24,5 @@ pre-commit:
         find ./.github -mindepth 2 -type f -name "*.yml" -exec action-validator --verbose {} +
         actionlint
         prettier --write ".github/**/*.{yml,yaml}"
-      glob: ".github/**/*"
+      glob: ".github/**"
       stage_fixed: true
