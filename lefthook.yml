@@ -4,12 +4,25 @@ output:
 
 pre-commit:
   jobs:
-    - run: go build
-    - run: golangci-lint run --fix
+    - name: Style
+      run: golangci-lint run --fix
       glob: "*.go"
       stage_fixed: true
-    - name: action-validator
-      run: find ./.github -mindepth 2 -type f -name "*.yml" -exec action-validator --verbose {} +
-      glob: ".github/**"
-    - run: actionlint
-      glob: ".github/**"
+
+    - name: Build
+      run: go build
+
+    - name: Docs
+      run: |
+        mkdocs build --strict
+        prettier --write "docs/**/*.md"
+      glob: "docs/**/*"
+      stage_fixed: true
+
+    - name: CI manifests
+      run: |
+        find ./.github -mindepth 2 -type f -name "*.yml" -exec action-validator --verbose {} +
+        actionlint
+        prettier --write ".github/**/*.{yml,yaml}"
+      glob: ".github/**/*"
+      stage_fixed: true
