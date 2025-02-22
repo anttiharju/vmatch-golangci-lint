@@ -31,4 +31,4 @@ jobs:
 
       - if: always()
         name: Prettier
-        uses: anttiharju/actions/prettier@v0
+        uses: anttiharju/actions/check-prettier@v0
