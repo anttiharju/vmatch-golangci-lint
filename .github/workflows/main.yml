@@ -33,7 +33,7 @@ jobs:
           committer: "anttiharju[bot]"
       - name: Get metadata
         id: get-metadata
-        uses: ./.github/actions/get-metadata
+        uses: anttiharju/actions/go/get-metadata@v0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: false # Suppress warning about a 'missing' go.sum
