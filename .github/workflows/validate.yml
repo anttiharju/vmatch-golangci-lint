@@ -26,9 +26,5 @@ jobs:
         uses: anttiharju/actions/validate-docs@v0
 
       - if: always()
-        name: action-validator
-        uses: anttiharju/actions/action-validator@v0
-
-      - if: always()
-        name: actionlint
-        uses: anttiharju/actions/actionlint@v0
+        name: Actions
+        uses: ./.github/actions/validate-actions

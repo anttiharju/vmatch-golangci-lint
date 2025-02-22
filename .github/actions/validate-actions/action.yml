@@ -1,0 +1,11 @@
+name: Validate actions
+description: Combines both actionlint and action-validator into one step for neater UI
+
+runs:
+  using: "composite"
+  steps:
+    - name: action-validator
+      uses: anttiharju/actions/action-validator@v0
+
+    - name: actionlint
+      uses: anttiharju/actions/actionlint@v0
