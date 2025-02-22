@@ -1,4 +1,4 @@
-name: Output Go details
+name: Output Go project details
 description: Outputs details about a Go project for homebrew-tap workflow call
 inputs:
   github-token:

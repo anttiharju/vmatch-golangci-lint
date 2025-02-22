@@ -28,20 +28,20 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
       - name: Release
         uses: anttiharju/actions/release@v0
-      - name: Output Go details
-        id: output-go-details
-        uses: ./.github/actions/output-go-details
+      - name: Get project details
+        id: get-project-details
+        uses: ./.github/actions/output-go-project-details
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: false # Suppress warning about a 'missing' go.sum
       - name: Publish docs
         uses: ./.github/actions/publish-docs
     outputs:
-      description: ${{ steps.output-go-details.outputs.description }}
-      homepage: ${{ steps.output-go-details.outputs.homepage }}
-      url: ${{ steps.output-go-details.outputs.url }}
-      go_version: ${{ steps.output-go-details.outputs.go_version }}
-      version: ${{ steps.output-go-details.outputs.version }}
+      description: ${{ steps.get-project-details.outputs.description }}
+      homepage: ${{ steps.get-project-details.outputs.homepage }}
+      url: ${{ steps.get-project-details.outputs.url }}
+      go_version: ${{ steps.get-project-details.outputs.go_version }}
+      version: ${{ steps.get-project-details.outputs.version }}
 
   distribute:
     name: Distribute
