@@ -26,6 +26,14 @@ pre-commit:
           - run: actionlint
       glob: ".github/*"
 
+    - name: ShellCheck
+      run: >
+        git ls-files -z | xargs -0 file |
+        grep "script text executable" |
+        cut -d: -f1 | xargs
+        shellcheck -x
+      glob: "{*.sh,scripts/*}"
+
     - name: Docs
       run: mkdocs build --strict
       glob: "{docs/*,mkdocs.yml}"
