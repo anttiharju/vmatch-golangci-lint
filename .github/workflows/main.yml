@@ -9,13 +9,13 @@ on:
       - "go.mod"
 
 jobs:
-  project:
-    name: Project
-    uses: ./.github/workflows/project.yml
+  validate:
+    name: Validate
+    uses: ./.github/workflows/validate.yml
 
   release:
     name: Release
-    needs: project
+    needs: validate
     runs-on: ubuntu-24.04
     permissions:
       contents: write
