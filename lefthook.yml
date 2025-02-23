@@ -31,7 +31,7 @@ pre-commit:
         git ls-files -z | xargs -0 file |
         grep "script text executable" |
         cut -d: -f1 | xargs
-        shellcheck -x
+        shellcheck --color=always -x
       glob: "{*.sh,scripts/*}"
 
     - name: Docs
