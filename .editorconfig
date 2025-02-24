@@ -1,5 +1,6 @@
 # EditorConfig is awesome: https://editorconfig.org
 # Maintained from https://github.com/anttiharju/.editorconfig
+# change
 
 [*]
 end_of_line = lf
