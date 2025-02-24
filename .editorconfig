@@ -1,6 +1,6 @@
 # EditorConfig is awesome: https://editorconfig.org
 # Maintained from https://github.com/anttiharju/.editorconfig
-# third test to override existing branch
+# potato
 
 [*]
 end_of_line = lf
