@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Go patch version resolution - vmatch</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Go patch version resolution";
+        var mkdocs_page_input_path = "go-patches.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> vmatch
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Go patch version resolution</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#background">Background</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-version-specification-in-gomod">Patch version specification in go.mod</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#semantic-versioning-majorminorpatch-and-go">Semantic versioning (major.minor.patch) and Go</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#download-urls-for-go">Download URLs for Go</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#locking-a-patch-unlocked-version">Locking a patch-unlocked version</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#go-version-api">Go version API</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#when-should-vmatch-be-concerned-with-what-is-the-latest-patch">When should vmatch be concerned with what is the latest patch?</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#customising-the-endpoint-for-the-needs-of-vmatch">Customising the endpoint for the needs of vmatch</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#being-a-good-api-citizen">Being a good API citizen</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#how-often-the-api-should-be-called">How often the API should be called?</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#how-to-manage-a-partial-state-copy">How to manage a partial state copy?</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#vmatch-go-version-repository">vmatch-go-version repository</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#further-reading">Further reading</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Cli</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli/doctor/">doctor</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli/go/">go</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli/golangci-lint/">golangci-lint</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">vmatch</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Go patch version resolution</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="go-patch-version-resolution">Go patch version resolution</h1>
+<p>This document outlines how vmatch resolves which patch version to pick when only minor version has been specfied in <code>go.mod</code>.</p>
+<h2 id="background">Background</h2>
+<h3 id="patch-version-specification-in-gomod">Patch version specification in <code>go.mod</code></h3>
+<p>A basic <code>go.mod</code> file can look as follows</p>
+<pre><code>module github.com/anttiharju/vmatch
+
+go 1.23.5
+</code></pre>
+<p>To unlock the patch version, the file would be modified like this:</p>
+<pre><code class="language-diff">module github.com/anttiharju/vmatch
+
+-go 1.23.5
++go 1.23
+</code></pre>
+<p>Both version specifications (<code>1.23</code> and <code>1.23.5</code>) are valid.</p>
+<h3 id="semantic-versioning-majorminorpatch-and-go">Semantic versioning (major.minor.patch) and Go</h3>
+<p>Based on the go.mod example above, one could reasonably assume that</p>
+<ul>
+<li><code>1</code> is the major version. Go maintainers have asserted that "There will not be a Go 2 that breaks Go 1 programs" <a href="https://go.dev/blog/compat#go2">[1]</a>. The statement is not as strong as it may seem, as Go 1.22 made a breaking change <a href="https://tip.golang.org/wiki/LoopvarExperiment#can-this-change-break-programs">[2]</a> to for loops <a href="https://go.dev/blog/loopvar-preview">[3]</a>. This change was welcome as it removed a common footgun. Migration tooling was provided for the breaking change <a href="https://tip.golang.org/wiki/LoopvarExperiment#can-i-see-a-list-of-places-in-my-code-affected-by-the-change">[4]</a>, which unfortunately does not work if package main contains other Go files than <code>main.go</code>. In reasonably structured projects the tooling makes the migration process fairly easy.</li>
+<li><code>23</code> is the minor version. Developers care about this one because as mentioned above, breaking changes may happen in minor versions.</li>
+<li><code>5</code> is the patch version. Developers may have various reasons for leaving it unlocked, some of them are</li>
+<li>reduced maintenance effort.</li>
+<li>tooling such as <a href="https://pkg.go.dev/golang.org/x/tools/cmd/stringer"><code>stringer</code></a> refusing to work if patch version is specified.</li>
+<li>patch versions presumably do not introduce breaking changes. In typical semversioned projects minor versions would also not introduce breaking changes. Alas, this is not the case with Go.</li>
+</ul>
+<p>This is not the case as Go's version format stands for 1.N.P <a href="https://tip.golang.org/doc/toolchain#version">[5]</a>:</p>
+<ul>
+<li><code>1</code> is hardcoded per their commitment to not releasing Go 2 (trying to the infamous Python 2 -&gt; 3 situation?).</li>
+<li><code>N</code> stands for 'language version' so they may make breaking changes here</li>
+<li><code>P</code> standing for P, 'often referred to as patch releases'. Sometimes referred to as minor releases elsewhere in Go documentation.</li>
+</ul>
+<h3 id="download-urls-for-go">Download URLs for Go</h3>
+<p>As of writing,</p>
+<p><code>vmatch</code> uses a separate project <a href="https://github.com/anttiharju/vmatch-go"><code>vmatch-go</code></a> to download Go binaries. The downloads are sourced from https://go.dev/dl.</p>
+<p>A typical download URL looks like</p>
+<p>https://go.dev/dl/go1.23.5.darwin-arm64.tar.gz</p>
+<p>which <code>vmatch-go</code> constructs using the following template</p>
+<pre><code class="language-sh">url=&quot;https://go.dev/dl/go${goversion}.${goos}-${goarch}.tar.gz&quot;
+</code></pre>
+<p>Sometimes patch-unlocked versions can be downloaded with the above template. It for example works for Go 1.20 https://go.dev/dl/go1.20.darwin-arm64.tar.gz. However this pattern is inconsistent, as a similar url for Go 1.24 results in a 404 https://go.dev/dl/go1.24.darwin-arm64.tar.gz.</p>
+<p>Therefore specifying the patch version is desirable for vmatch.</p>
+<p>These inconsistent URLs are made even more curious by the fact that the downloaded Go 1.20 binary does not report a patch version for itself</p>
+<pre><code class="language-sh">$ ~/.vmatch/go/v1.20/bin/go version
+go version go1.20 darwin/arm64
+</code></pre>
+<p>this leaves open whether the downloaded binary is</p>
+<ol>
+<li>Go 1.20.0</li>
+<li>Latest patch of Go 1.20 as of downloading, or</li>
+<li>a version of 1.20 <em>before</em> 1.20.0.</li>
+<li>a release candidate of 1.20</li>
+</ol>
+<p>Thankfully this is largely a nonconcern for vmatch as patch versions should not introduce breaking changes.</p>
+<h2 id="locking-a-patch-unlocked-version">Locking a patch-unlocked version</h2>
+<h3 id="go-version-api">Go version API</h3>
+<p>Fortunately, go.dev provides an API at https://go.dev/dl/?mode=json&amp;include=all which includes data about all released versions of Go.</p>
+<p>Unfortunately, it is about 58k lines of JSON. Not that downloading it takes a long time, but doing computation on it on-demand may introduce undesirable delay and the problem would only get worse over time.</p>
+<p>Thankfully, vmatch only needs to know what is the latest patch for a given patch-unlocked version of Go.</p>
+<h4 id="when-should-vmatch-be-concerned-with-what-is-the-latest-patch">When should vmatch be concerned with what is the latest patch?</h4>
+<p>Querying the API endpoint each time vmatch is invoked in projects that have the patch version unlocked, would likely provide a poor experience because</p>
+<ul>
+<li>API calls (networking!) cause additional delay</li>
+<li>Even if you have downloaded a viable version for a given patch-unlocked version of Go, your development environment would sease to function should the endpoint be down or your computer offline.</li>
+</ul>
+<p>Both of the above are highly undesirable as vmatch aims to be as non-existent of a wrapper as it can.</p>
+<ul>
+<li>It also needs to be acknowledged that when vmatch downloads a given version of Go for the first time, there is a noticeable delay compared to if a person was directly invoking a Go binary.</li>
+</ul>
+<p>While the above is undesirable, it is the core functionality of vmatch.</p>
+<h4 id="customising-the-endpoint-for-the-needs-of-vmatch">Customising the endpoint for the needs of vmatch</h4>
+<p>It is clear that vmatch needs <em>a</em> dynamic endpoint for fetching the latest patch of a patch-unlocked version of Go. But that does not necessitate that we have to call the go.dev provided one directly. With an approach similar to <code>vmatch-go</code>, we could setup another repository, for example <code>vmatch-go-version</code>, which could have a scheduled GitHub Actions workflow run that parses the go.dev endpoint into a more granular format, to a directory structure such as</p>
+<pre><code>latest
+├── patch
+│   └── 1.20 # contains value like &quot;14&quot;
+└── version # contains a value like &quot;1.20&quot;
+</code></pre>
+<p>This way vmatch can be security-hardened to lock <code>vmatch-go</code> to a SHA while leaving <code>vmatch-go-version</code> unlocked at HEAD for convenience. Finally, having <code>vmatch-go-version</code> separate from <code>vmatch</code> is also desirable to keep the automation (when should a new relase be made) in <code>vmatch</code> easy.</p>
+<h3 id="being-a-good-api-citizen">Being a good API citizen</h3>
+<p>In the unlikely case that this tool becomes popular, vmatch does not want to bombard GitHub with bunch of traffic to <code>vmatch-go-version</code>. Not that I doubt that they could not handle it.</p>
+<p>So vmatch would require some sort of functionality that it only checks every N hours what the latest patch version is. It could maintain a partial copy of the latest patch tree under <code>~/.vmatch/go</code>.</p>
+<h4 id="how-often-the-api-should-be-called">How often the API should be called?</h4>
+<p><em>Technically</em> it could be that some external dependency <em>would</em> work on the latest patch of a given Go version, but not on patch 0. And perhaps more importantly, the patches appear to contain security fixes. <em>Therefore</em>, it would be important for the Go versions of vmatch users to <em>eventually</em> gravitate towards the latest patch. What is a good interval will be worked out in this section.</p>
+<p>vmatch will assume that new versions of Go can be released at any time.</p>
+<p>The GitHub Actions automation in <code>vmatch-go-version</code> will depend on GitHub runners, and the GitHub Free plan includes 2,000 free minutes per month <a href="https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-actions/about-billing-for-github-actions#included-storage-and-minutes">[6]</a></p>
+<p>If we assume a month can have up to 31 days and that the job would complete within a minute, running the scan every 12 hours would consume ~62 minutes a month, or in other words 3,1% of the free runner capacity. And vmatch waits at least 12 hours before checking for the latest version again.</p>
+<p>I think that in the rare case that the patch version is important for a given project, having vmatch fix the issue within a day would be acceptable.</p>
+<p>So in the worst case:</p>
+<ul>
+<li>vmatch-go-version completes a scan (t=0h0m)</li>
+<li>Go releases a version immediately after (t=0h1m)</li>
+<li>vmatch checks vmatch-go-version what the latest version is (t=11h59m)</li>
+<li>vmatch-go-version becomes aware of the new version (t=12h0m)</li>
+<li>vmatch can become aware of the new Go version (t=23h59m)</li>
+</ul>
+<p>But in practice:</p>
+<ul>
+<li>a user notices their development environment is not working at the end of their workday</li>
+<li>the development environment cannot fix itself during their next workday</li>
+</ul>
+<p>-&gt; vmatch should have the ability to become aware of new Go versions within 12 hours of release. This would translate to running the GitHub Actions job every 6 hours, resulting in the worst case scenario of</p>
+<ul>
+<li>vmatch-go-version completes a scan (t=0h0m)</li>
+<li>Go releases a version immediately after (t=0h1m)</li>
+<li>vmatch checks vmatch-go-version what the latest version is (t=5h59m)</li>
+<li>vmatch-go-version becomes aware of the new version (t=6h0m)</li>
+<li>vmatch can become aware of the new Go version (t=11h59m)</li>
+</ul>
+<p>So in practice:</p>
+<ul>
+<li>user notices their development environment is not working at the end of their workday</li>
+<li>the development environment can fix itself by tomorrow (assuming a somewhat regular working schedule)</li>
+</ul>
+<p>The 12-hour schedule leaves slack for irregular work schedules and possible GitHub Actions downtime. It would consume 31*(24/6)=124 minutes a month which is 6,2% (124/2000) of the free capacity. As of writing this appears acceptable, to be adjusted if limits are hit.</p>
+<h4 id="how-to-manage-a-partial-state-copy">How to manage a partial state copy?</h4>
+<p>According to the release policy <a href="https://go.dev/doc/devel/release#policy">[7]</a> patch versions (confusingly referred to as minor releases, but specified with an example) can be released for supported releases. The latest two versions are considered supported. In other words, if Go 1.24 is the latest, both it and Go 1.23 receive patches.</p>
+<p>Therefore vmatch in its queries to vmatch-go-version should stay aware of the latest version at all times to avoid needlessly asking whether non-supported versions have new patch releases, leading to the flow:</p>
+<ul>
+<li>if a supported binary has been downloaded:</li>
+<li>fail silently in case of any networking issues:<ul>
+<li>fetch latest patch from vmatch-go-version for the two latest patches, download binaries upon a change</li>
+<li>an extra delay at most once per workday<ul>
+<li>at best an API call</li>
+<li>at worst a Go binary download</li>
+</ul>
+</li>
+<li>update the latest version, two api calls:</li>
+<li>vmatch-go-version/language-version/latest (for example Go 1.24, not saved in a file)</li>
+<li>vmatch-go-version/1.24 (patch 0, saved to a file)</li>
+</ul>
+</li>
+<li>call the latest patch binary of the minor Go version appropriate for the patch-unlocked project</li>
+</ul>
+<h4 id="vmatch-go-version-repository">vmatch-go-version repository</h4>
+<p>Should always scan all existing Go versions from the upstream API to maintain a solid ground truth.</p>
+<p>In case a local vmatch installation ends up in a state where it cannot fetch the latest patch for a given Go release, user can always rm -rf <code>~/.vmatch</code> directory to reset local cache (should not happen given Go's release policy and the vmatch update flow above).</p>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li>Go's toolchain feature https://tip.golang.org/doc/toolchain. The relevant bit:</li>
+</ul>
+<blockquote>
+<p>The Go toolchain refuses to load a module or workspace that declares a minimum required Go version greater than the toolchain’s own version.</p>
+<p>For example, Go 1.21.2 will refuse to load a module or workspace with a go 1.21.3 or go 1.22 line.</p>
+</blockquote>
+<p>toolchain is a cool feature. It does not nullify the purpose of vmatch, as vmatch would simply download the newer release and presumably the language-version features such as toolchain would continue to work within vmatch-downloaded versions of Go.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../cli/doctor/" class="btn btn-neutral float-right" title="doctor">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../cli/doctor/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
